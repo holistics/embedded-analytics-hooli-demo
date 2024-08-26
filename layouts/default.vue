@@ -5,11 +5,15 @@
     
     <!-- Main content area -->
     <div class="flex-1 overflow-auto">
-      <slot />
+      <div class="p-[60px]">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import sidebar from '~/components/sidebar.vue'
+<script setup lang="ts">
+definePageMeta({
+  middleware: ["auth"]
+})
 </script>
