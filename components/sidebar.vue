@@ -28,7 +28,7 @@
 
     <!-- Logo area -->
     <div class="p-4">
-      <img src="https://cdn.holistics.io/logos/holistics-logo-white.png" alt="Holistics Logo" class="h-8" />
+      <img src="https://cdn.holistics.io/logos/merchify-logo.svg" alt="Holistics Logo" class="h-8" />
     </div>
 
     <!-- Navigation -->
@@ -45,7 +45,7 @@
           </NuxtLink>
           
           <!-- Submenu -->
-          <ul v-if="item.children" class="ml-6 mt-2 space-y-1">
+          <ul v-if="item.children" class="ml-7 mt-2 space-y-1">
             <li v-for="child in item.children" :key="child.label">
               <NuxtLink 
                 :to="child.to" 
@@ -130,8 +130,8 @@ const selectMenuUI = {
 }
 const menuItems = [
   { label: 'Home', to: '/', icon: 'i-heroicons-home' },
-  { label: 'Orders', to: '/orders', icon: 'i-heroicons-shopping-cart' },
-  { label: 'Products', to: '/products', icon: 'i-heroicons-tag' },
+  { label: 'Orders', to: '/#', icon: 'i-heroicons-shopping-cart' },
+  { label: 'Products', to: '/#', icon: 'i-heroicons-tag' },
   { 
     label: 'Analytics', 
     icon: 'i-heroicons-presentation-chart-line',

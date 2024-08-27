@@ -1,11 +1,11 @@
 <!-- pages/login.vue -->
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="min-h-screen flex items-center justify-center bg-gray-900">
     <div class="w-full max-w-md p-8">
       <!-- Logo -->
       <div class="text-center mb-8">
-        <img src="https://cdn.holistics.io/logos/holistics-logo-color.png" alt="Holistics Logo" class="h-12 mx-auto" />
-        <p class="mt-4 text-gray-600">
+        <img src="https://cdn.holistics.io/logos/merchify-logo.svg" alt="Holistics Logo" class="h-12 mx-auto" />
+        <p class="mt-4 text-white">
           Welcome to Holistics Embedded Playground
           <br>
           Please select a role:

@@ -1,12 +1,6 @@
-<!-- pages/index.vue -->
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Metrics</h1>
-    
-    <kpipanel class="mb-8" />
-  </div>
-  <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Business Insights</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Overview</h1>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border-0" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -22,7 +16,7 @@ import { useFetch } from '#app'
 
 const iframeUrl = ref('')
 
-const { data, error } = await useFetch('/api/db-homepage')
+const { data, error } = await useFetch('/api/product')
 
 if (data.value) {
   iframeUrl.value = `https://demo4.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`

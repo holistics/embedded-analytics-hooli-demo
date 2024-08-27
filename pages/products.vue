@@ -12,17 +12,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import { useFetch } from '#app'
 
-const iframeUrl = ref(null)
+const iframeUrl = ref('')
 
-onMounted(async () => {
-  try {
-    const response = await fetch('/api/generate-iframe-token')
-    const data = await response.json()
-    iframeUrl.value = `https://demo4.holistics.io/embed/${data.embed_code}?_token=${data.token}`
-  } catch (error) {
-    console.error('Error fetching iframe token:', error)
-  }
-})
+const { data, error } = await useFetch('/api/generate-iframe-token')
+
+if (data.value) {
+  iframeUrl.value = `https://demo4.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
+}
+
+if (error.value) {
+  console.error('Error fetching iframe token:', error.value)
+}
 </script>
