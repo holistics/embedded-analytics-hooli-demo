@@ -17,22 +17,61 @@
         v-model="selectedUser"
         :options="userOptions"
         placeholder="Select User"
-        class="w-full"
+        class="w-full mb-4"
         :ui="selectMenuUI"
-        @update:model-value="login"
+        size="lg"
+        @update:model-value="onUserSelect"
       >
         <template #label>
-          <div class="flex justify-between items-center">
-            <span>{{ selectedUser || 'Select User' }}</span>
+          <div class="flex items-center">
+            <UAvatar
+              v-if="selectedUser"
+              :src="selectedUser.avatar"
+              :alt="selectedUser.name"
+              size="sm"
+              class="mr-2"
+            />
+            <div>
+              <span>{{ selectedUser ? selectedUser.mail : 'Select User' }}</span>
+              <p v-if="selectedUser" class="text-sm text-gray-500">{{ selectedUser.role }}</p>
+            </div>
           </div>
         </template>
-        <template #option="{ option, selected }">
-          <div class="flex items-center justify-between">
-            <span>{{ option.label }}</span>
-            <UIcon v-if="selected" name="i-heroicons-check-20-solid" class="w-5 h-5" />
+        <template #option="{ option }">
+          <div class="flex items-center">
+            <UAvatar
+              :src="option.avatar"
+              :alt="option.name"
+              size="sm"
+              class="mr-2"
+            />
+            <div>
+              <span>{{ option.name }}</span>
+              <p class="text-sm text-gray-500">{{ option.role }}</p>
+            </div>
           </div>
         </template>
       </USelectMenu>
+
+      <!-- Password Field -->
+      <UInput
+        v-model="password"
+        type="password"
+        placeholder="Password"
+        class="w-full py-2 mb-4"
+        size="lg"
+        :disabled="!selectedUser"
+      />
+
+      <!-- Login Button -->
+      <UButton
+        class="w-full bg-[#DC4C3D] flex items-center justify-center"
+        size="lg"
+        :disabled="!selectedUser"
+        @click="login"
+      >
+        Login
+      </UButton>
     </div>
   </div>
 </template>
@@ -52,12 +91,15 @@ const router = useRouter()
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
 
-const selectedUser = ref(null)
+const selectedUser = ref(usersStore.availableUsers[0] ||null)
+const password = ref('')
 
 const userOptions = computed(() => 
   usersStore.availableUsers.map(user => ({
-    label: user,
-    value: user
+    name: user.name,
+    role: user.role,
+    mail: user.mail,
+    avatar: user.avatar
   }))
 )
 
@@ -66,6 +108,11 @@ const login = () => {
     authStore.login(selectedUser.value)
     router.push('/')
   }
+}
+
+function onUserSelect(user) {
+  selectedUser.value = user
+  password.value = '***********'
 }
 
 const selectMenuUI = {
