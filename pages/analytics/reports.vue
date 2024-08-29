@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <UHorizontalNavigation :links="navigationItems" class="text-5xl" />
+    <UHorizontalNavigation :links="navigationItems" class="text-5xl border-b" />
     <NuxtPage />
   </div>
 </template>

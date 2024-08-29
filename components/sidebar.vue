@@ -4,11 +4,11 @@
 
     <!-- Logo area -->
     <div class="p-4">
-      <img src="https://cdn.holistics.io/logos/merchify-logo.svg" alt="Holistics Logo" class="h-8" />
+      <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-8" />
     </div>
 
     <!-- User selection area -->
-    <div class="p-4 border-b border-gray-800">
+    <div class="p-4 border-t border-gray-800">
       <USelectMenu
         v-model="selectedUser"
         :options="userOptions"
@@ -25,20 +25,20 @@
               size="xs"
               class="mr-2"
             />
-            <div class="flex flex-col">
+            <div class="flex flex-col cursor-pointer">
               <span>{{ selectedUser ? selectedUser.name : 'Select User' }}</span>
             </div>
           </div>
         </template>
         <template #option="{ option }">
-          <div class="flex items-center w-full ">
+          <div class="flex items-center w-full cursor-pointer">
             <UAvatar
               :src="option.avatar"
               :alt="option.name"
               size="sm"
               class="mr-2"
             />
-            <div class="flex flex-col">
+            <div class="flex flex-col w-full">
               <span>{{ option.name }}</span>
               <span class="text-sm text-gray-500">{{ option.role }}</span>
             </div>
@@ -49,42 +49,59 @@
 
     <!-- Navigation -->
     <nav class="flex-1">
-      <ul class="space-y-2 px-4">
-        <li v-for="item in menuItems" :key="item.label">
-          <NuxtLink 
-            v-if="!item.children"
-            :to="item.to" 
-            class="flex items-center p-2 rounded-lg transition-colors duration-150 hover:bg-gray-800"
-            :class="{ 'bg-[#DC4C3D]': isActive(item.to) }"
-          >
-            <UIcon :name="item.icon" class="w-5 h-5 mr-3" />
-            <span class="text-sm">{{ item.label }}</span>
-          </NuxtLink>
-          
-          <!-- Submenu -->
-          <div v-else>
-            <span class="font-bold mt-2 p-2 text-sm">{{ item.label }}</span>
-            <ul class="ml-2 mt-2 space-y-1">
-              <li v-for="child in item.children" :key="child.label">
-                <NuxtLink 
-                  :to="child.to" 
-                  class="flex items-center p-2 text-sm rounded-lg transition-colors duration-150 hover:bg-gray-800"
-                  :class="{ 'bg-[#DC4C3D]': isActive(child.to) }"
-                >
-                  <UIcon :name="child.icon" class="w-5 h-5 mr-3" />
-                  <span class="text-sm">{{ child.label }}</span>
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </nav>
+    <ul class="space-y-2 px-4">
+      <li v-for="item in menuItems" :key="item.label">
+        <NuxtLink
+          v-if="!item.children && !item.disabled"
+          :to="item.to"
+          class="flex items-center p-2 rounded-lg transition-colors duration-150 hover:bg-gray-800"
+          :class="{ 'bg-[#DC4C3D]': isActive(item.to) }"
+        >
+          <UIcon :name="item.icon" class="w-5 h-5 mr-3" />
+          <span class="text-sm">{{ item.label }}</span>
+        </NuxtLink>
+
+        <div
+          v-else-if="!item.children && item.disabled"
+          class="flex items-center p-2 w-full rounded-lg transition-colors duration-150 "
+        >
+          <UTooltip text="inactive in this showcase app" :popper="{ placement: 'right-end' }">
+            <UIcon :name="item.icon" class="w-5 h-5 mr-3 cursor-not-allowed opacity-70" />
+            <span class="text-sm cursor-not-allowed opacity-70">{{ item.label }}</span>
+          </UTooltip>
+        </div>
+        
+        <!-- Submenu -->
+        <div v-else>
+          <span class="font-bold mt-2 p-2 text-sm">{{ item.label }}</span>
+          <ul class="ml-2 mt-2 space-y-1">
+            <li v-for="child in item.children" :key="child.label">
+              <NuxtLink
+                :to="child.to"
+                class="flex items-center p-2 text-sm rounded-lg transition-colors duration-150 hover:bg-gray-800"
+                :class="{ 'bg-[#DC4C3D]': isActive(child.to) }"
+              >
+                <UIcon :name="child.icon" class="w-5 h-5 mr-3" />
+                <span class="text-sm">{{ child.label }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
     <!-- Logout button -->
     <div class="p-4 border-t border-gray-800">
-      <UButton @click="logout" color="red" variant="ghost" class="w-full">
-        <UIcon name="i-heroicons-logout" class="mr-2" />
+      <UButton 
+        @click="logout" 
+        color="red" 
+        variant="ghost" 
+        class="w-full text-white hover:bg-[#dc4c3d] transition-colors duration-200"
+      >
+        <template #leading>
+          <UIcon name="i-heroicons-arrow-right-on-rectangle" />
+        </template>
         Logout
       </UButton>
     </div>
@@ -133,8 +150,8 @@ const selectUI = {
 
 const menuItems = [
   { label: 'Home', to: '/', icon: 'i-heroicons-home' },
-  { label: 'Orders', to: '/#', icon: 'i-heroicons-shopping-cart' },
-  { label: 'Products', to: '/#', icon: 'i-heroicons-tag' },
+  { label: 'Orders', to: '/#', icon: 'i-heroicons-shopping-cart', disabled: true },
+  { label: 'Products', to: '/#', icon: 'i-heroicons-tag', disabled: true },
   { 
     label: 'Analytics', 
     

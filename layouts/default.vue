@@ -5,7 +5,7 @@
     
     <!-- Main content area -->
     <div class="flex-1 overflow-auto">
-      <div class="p-[60px]">
+      <div class="p-[60px] bg-white">
         <slot />
       </div>
     </div>

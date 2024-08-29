@@ -6,21 +6,21 @@
       :key="kpi.title"
       :ui="{ background: 'bg-[#FEF3EE]', ring: 'ring-1 ring-gray-200' }"
     >
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-2xl font-medium text-[#0F172A]">{{ kpi.title }}</p>
-          <p class="text-5xl font-semibold text-[#0F172A]">{{ kpi.value }}</p>
-        </div>
+      <div class="flex gap-3">
         <UIcon
           :name="kpi.icon"
           class="text-5xl text-[#DC4C3D]"
           :class="kpi.iconClass"
         />
+        <div>
+          <p class="text-2xl font-medium text-[#0F172A]">{{ kpi.title }}</p>
+          <p class="text-5xl font-semibold text-[#0F172A]">{{ kpi.value }}</p>
+          <p class="mt-2 text-sm text-gray-600">
+            <span :class="kpi.changeClass">{{ kpi.change }}</span>
+            vs last month
+          </p>
+        </div>
       </div>
-      <p class="mt-2 text-sm text-gray-600">
-        <span :class="kpi.changeClass">{{ kpi.change }}</span>
-        vs last month
-      </p>
     </UCard>
   </div>
 </template>
@@ -39,7 +39,7 @@ const kpis = [
     title: 'Total Orders',
     value: '1451',
     icon: 'i-heroicons-truck',
-    iconClass: 'text-blue-500',
+    iconClass: 'text-[#DC4C3D]',
     change: '-5%',
     changeClass: 'text-red-600',
   },
@@ -47,7 +47,7 @@ const kpis = [
     title: 'Average Order Value',
     value: '$356.2',
     icon: 'i-heroicons-check-circle',
-    iconClass: 'text-green-500',
+    iconClass: 'text-[#DC4C3D]',
     change: '+10%',
     changeClass: 'text-green-600',
   },

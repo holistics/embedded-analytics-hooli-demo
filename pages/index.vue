@@ -8,7 +8,7 @@
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">Business Insights</h1>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
-      <iframe :src="iframeUrl" class="w-full h-full border-0" frameborder="0" allowfullscreen></iframe>
+      <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
     <div v-else class="text-center py-8">
       <p>Loading iframe...</p>

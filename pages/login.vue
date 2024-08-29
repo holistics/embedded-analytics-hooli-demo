@@ -4,7 +4,7 @@
     <div class="w-full max-w-md p-8">
       <!-- Logo -->
       <div class="text-center mb-8">
-        <img src="https://cdn.holistics.io/logos/merchify-logo.svg" alt="Holistics Logo" class="h-12 mx-auto" />
+        <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-12 mx-auto" />
         <p class="mt-4 text-white">
           Welcome to Holistics Embedded Playground
           <br>
@@ -57,7 +57,7 @@
       <UInput
         v-model="password"
         type="password"
-        placeholder="Password"
+        placeholder="Password: 123456"
         class="w-full py-2 mb-4"
         size="lg"
         :disabled="!selectedUser"
@@ -65,7 +65,7 @@
 
       <!-- Login Button -->
       <UButton
-        class="w-full bg-[#DC4C3D] flex items-center justify-center"
+        class="w-full bg-[#DC4C3D] hover:bg-[#c03931] flex items-center justify-center text-white transition-colors duration-200"
         size="lg"
         :disabled="!selectedUser"
         @click="login"
