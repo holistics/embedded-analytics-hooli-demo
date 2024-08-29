@@ -74,7 +74,7 @@
         <!-- Submenu -->
         <div v-else>
           <span class="font-bold mt-2 p-2 text-sm">{{ item.label }}</span>
-          <ul class="ml-2 mt-2 space-y-1">
+          <ul class="mt-2 space-y-1">
             <li v-for="child in item.children" :key="child.label">
               <NuxtLink
                 :to="child.to"

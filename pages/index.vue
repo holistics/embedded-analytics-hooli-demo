@@ -22,7 +22,7 @@ import { useFetch } from '#app'
 
 const iframeUrl = ref('')
 
-const { data, error } = await useFetch('/api/db-homepage')
+const { data, error } = await useFetch('/api/business')
 
 if (data.value) {
   iframeUrl.value = `https://demo4.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
