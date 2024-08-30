@@ -1,14 +1,15 @@
 <template>
   <div class="flex flex-col h-screen">
     <!-- Sticky Banner -->
-    <header class="bg-blue-500 text-white p-4 sticky top-0 z-10">
-      <h1 class="text-2xl font-bold">Your Banner</h1>
-      <UButton 
-        color="red" 
-        variant="ghost" 
-        class="w-full text-white hover:bg-[#dc4c3d] transition-colors duration-200"
-        label="free"
-      >Free Trial</UButton>
+    <header class="bg-[#dc4c3d] text-white p-2 sticky top-0 z-10 text-center">
+        <div class="flex items-center justify-center space-x-2">
+          <p class="font-bold">This is our demo app, try with your own databases 👉</p>
+          <UButton 
+            variant="outline" 
+            label="free"
+            color="white"
+          >Get started free</UButton>
+        </div>
     </header>
 
     <!-- Main Content -->
