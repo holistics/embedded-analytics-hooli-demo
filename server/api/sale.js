@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
-  const embed_code = "ba93db5151640b65f92b01b0"
-  const secret_key = "fe8fc8fddfb031a8eecb12f317393cb92f154b82e080b6d00eb2ab4c97f9621becd297012e1b8688080e39755813012f85acd3261943c98b75e3bf7f5fa89962"
-  
+  const embed_code = "69bf7c07e7d6a0cc619e231b"
+  const secret_key = "0c31cc7817c7ab6f8d8074bcb39023cc9fd605d6c9f975ad8843ee85cd362d77af7e8f07aeb6f5b99b24cbe9d2fab45d7d0506dde62d6f90f454da8c2400ceea"
   const expired_time = Math.floor(Date.now() / 1000) + (24 * 60 * 60 * 1000)
-
+  
   const settings = {
     "enable_export_data": false,
     "default_timezone": null,
@@ -17,17 +16,26 @@ export default defineEventHandler(async (event) => {
   };
   
   const filters = {
-    "f1": {
+    "f2": {
+      "hidden": false,
+      "default_condition": {
+        "operator": "matches",
+        "values": [
+          null
+        ],
+        "modifier": null
+      }
+    },
+    "f3": {
       "hidden": false,
       "default_condition": {
         "operator": "is",
-        "values": [
-          "youtube_blogger"
-        ],
+        "values": [],
         "modifier": null
       }
     }
   };
+  
   
   const payload = {
     settings: settings,

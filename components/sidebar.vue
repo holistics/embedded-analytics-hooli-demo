@@ -65,7 +65,7 @@
           v-else-if="!item.children && item.disabled"
           class="flex items-center p-2 w-full rounded-lg transition-colors duration-150 "
         >
-          <UTooltip text="inactive in this showcase app" :popper="{ placement: 'right-end' }">
+          <UTooltip text="This function is not available in our demo app" :popper="{ placement: 'right-end' }">
             <UIcon :name="item.icon" class="w-5 h-5 mr-3 cursor-not-allowed opacity-70" />
             <span class="text-sm cursor-not-allowed opacity-70">{{ item.label }}</span>
           </UTooltip>

@@ -2,9 +2,8 @@
 import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
-  const embed_code = "b04a495124f0e57983ea418a"
-  const secret_key = "fd5484161859ff014a95e9758ef688e661c6880be9d83d7f5d5b10cb405e27e6b15e9928baff4387521f63a34d7e3a036d6b26247e894141c0bc69cf3a7e3969"
-
+  const embed_code = "6a6b2fffd59fa11a4ceaa60b"
+  const secret_key = "e781139269c25bea7cc1faaeb87ddb77ea2fa8331023267cffeb10761e2f33c30d448d48d148446fe256d5abb5298e12c4262c5ebfb977c2718624337721d3b4"
 // Will expire after 1 day, change it to the value you want
 const expired_time = Math.floor(Date.now() / 1000) + (24 * 60 * 60 * 1000);
 const settings = {
