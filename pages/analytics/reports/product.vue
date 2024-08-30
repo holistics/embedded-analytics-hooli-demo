@@ -18,7 +18,7 @@ const iframeUrl = ref('')
 const { data, error } = await useFetch('/api/product')
 
 if (data.value) {
-  iframeUrl.value = `https://demo4.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
+  iframeUrl.value = `https://secure.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
 }
 
 if (error.value) {

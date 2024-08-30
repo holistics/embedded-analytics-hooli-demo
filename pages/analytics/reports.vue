@@ -27,6 +27,11 @@ const navigationItems = [
     label: 'Marketing',
     icon: 'i-heroicons-megaphone',
     to: '/analytics/reports/marketing',
+  },
+  {
+    label: 'Sales',
+    icon: 'i-heroicons-building-storefront',
+    to: '/analytics/reports/sales',
   }
 ]
 </script>

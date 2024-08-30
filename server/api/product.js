@@ -2,43 +2,30 @@ import jwt from 'jsonwebtoken'
 
 export default defineEventHandler(async (event) => {
 
-  const embed_code = "5c42e3e0d7f22d770a975fe5";
-  const secret_key = "94ec72d62ae283fa2136b9b0a1d719761478937e2c5213182226b3d1cb54f1ee8171b49321ce015e5c106352d857ac27046f0ab56b7b8355e51a9efd9abdcf86"
+  const embed_code = "c333b136cdcf521e7fb62531";
+  const secret_key = "21beff6ae9b238ff5382a96aaf78ca818b60c54c80f4e8a57c06c67cc7f11ecc61015c229c911a23341225118d134845c0205f061ded5ec05863ac38f360cda2"
 
-  // Will expire after 1 day, change it to the value you want
-  const expired_time = Math.floor(Date.now() / 1000) + (24 * 60 * 60);
+  const expired_time = Math.floor(Date.now() / 1000) + (24 * 60 * 60 * 1000);
   const settings = {
     "enable_export_data": false,
     "default_timezone": null,
     "allow_to_change_timezone": false
   };
-
+  
   const permissions = {
     "row_based": []
   };
-
+  
   const filters = {
     "f1": {
       "hidden": false,
       "default_condition": {
         "operator": "is",
-        "values": [
-          "Abernathy Group"
-        ],
+        "values": [],
         "modifier": null
       }
     },
     "f2": {
-      "hidden": false,
-      "default_condition": {
-        "operator": "matches",
-        "values": [
-          "last 2 years"
-        ],
-        "modifier": null
-      }
-    },
-    "f3": {
       "hidden": false,
       "default_condition": {
         "operator": "is",
@@ -47,7 +34,6 @@ export default defineEventHandler(async (event) => {
       }
     }
   };
-
 
   const payload = {
     settings: settings,
