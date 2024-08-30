@@ -1,6 +1,6 @@
 <!-- components/sidebar.vue -->
 <template>
-  <aside class="w-64 h-screen bg-gray-900 text-white flex flex-col">
+  <aside class="w-64 bg-gray-900 text-white flex flex-col">
 
     <!-- Logo area -->
     <div class="p-4">
@@ -8,7 +8,7 @@
     </div>
 
     <!-- User selection area -->
-    <div class="p-4 border-t border-gray-800">
+    <div class="p-4 border-t border-gray-800 flex">
       <USelectMenu
         v-model="selectedUser"
         :options="userOptions"
@@ -89,7 +89,7 @@
         </div>
       </li>
     </ul>
-  </nav>
+    </nav>
 
     <!-- Logout button -->
     <div class="p-4 border-t border-gray-800">
