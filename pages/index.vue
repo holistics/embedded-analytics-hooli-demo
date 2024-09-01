@@ -20,6 +20,7 @@
 import { ref } from 'vue'
 import { useFetch } from '#app'
 
+const appConfig = useAppConfig()
 const iframeUrl = ref('')
 
 const { data, error } = await useFetch('/api/business')

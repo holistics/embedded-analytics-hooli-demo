@@ -55,7 +55,7 @@
           v-if="!item.children && !item.disabled"
           :to="item.to"
           class="flex items-center p-2 rounded-lg transition-colors duration-150 hover:bg-gray-800"
-          :class="{ 'bg-[#DC4C3D]': isActive(item.to) }"
+          :class="{ 'bg-red-600 hover:!bg-red-700': isActive(item.to) }"
         >
           <UIcon :name="item.icon" class="w-5 h-5 mr-3" />
           <span class="text-sm">{{ item.label }}</span>
@@ -79,7 +79,7 @@
               <NuxtLink
                 :to="child.to"
                 class="flex items-center p-2 text-sm rounded-lg transition-colors duration-150 hover:bg-gray-800"
-                :class="{ 'bg-[#DC4C3D]': isActive(child.to) }"
+                :class="{ 'bg-red-600 hover:!bg-red-700': isActive(child.to) }"
               >
                 <UIcon :name="child.icon" class="w-5 h-5 mr-3" />
                 <span class="text-sm">{{ child.label }}</span>
@@ -97,7 +97,7 @@
         @click="logout" 
         color="red" 
         variant="ghost" 
-        class="w-full text-white hover:bg-[#dc4c3d] transition-colors duration-200"
+        class="w-full text-white hover:bg-red-700 transition-colors duration-200"
       >
         <template #leading>
           <UIcon name="i-heroicons-arrow-right-on-rectangle" />
@@ -152,6 +152,7 @@ const menuItems = [
   { label: 'Home', to: '/', icon: 'i-heroicons-home' },
   { label: 'Orders', to: '/#', icon: 'i-heroicons-shopping-cart', disabled: true },
   { label: 'Products', to: '/#', icon: 'i-heroicons-tag', disabled: true },
+  { label: 'Merchants', to: '/merchants', icon: 'i-heroicons-building-storefront' },
   { 
     label: 'Analytics', 
     

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen">
     <!-- Sticky Banner -->
-    <header class="bg-[#dc4c3d] text-white p-2 sticky top-0 z-10 text-center">
+    <header class="bg-red-600 text-white p-2 sticky top-0 z-10 text-center">
         <div class="flex items-center justify-center space-x-2">
           <p class="font-bold">This is our demo app, try with your own databases 👉</p>
           <UButton 

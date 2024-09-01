@@ -65,7 +65,7 @@
 
       <!-- Login Button -->
       <UButton
-        class="w-full bg-[#DC4C3D] hover:bg-[#c03931] flex items-center justify-center text-white transition-colors duration-200"
+        class="w-full bg-red-600 hover:bg-[#c03931] flex items-center justify-center text-white transition-colors duration-200"
         size="lg"
         :disabled="!selectedUser"
         @click="login"
