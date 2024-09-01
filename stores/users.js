@@ -3,11 +3,46 @@ import { defineStore } from 'pinia'
 export const useUsersStore = defineStore('users', {
   state: () => ({
     availableUsers: [
-      { name: 'Erlich Bachman', role: 'Merchant', mail: 'erlich.backman@hooli.com', avatar: 'https://ca.slack-edge.com/T02SY7XCK-U03B1RQ294H-529398856197-512' },
-      { name: 'Jian Yang', role: 'Merchant', mail: 'jian.yang@hooli.com', avatar: 'https://ca.slack-edge.com/T02SY7XCK-UKVL6B2VD-d82da0dd4d21-512' },
-      { name: 'Gilfoyle', role: 'Merchant', mail: 'gilfoyle@hooli.com', avatar: 'https://ca.slack-edge.com/T02SY7XCK-U5YJPBRT2-b3eea2198518-512' },
-      { name: 'Jared Dunn', role: 'Regional Manager', mail: 'jared.dunn@hooli.com', avatar: 'https://ca.slack-edge.com/T02SY7XCK-UB62ZD53R-06994a1cc074-512' },
-      { name: 'Peter Gregory', role: 'Regional Manager', mail: 'peter.gregory@hooli.com', avatar: 'https://ca.slack-edge.com/T02SY7XCK-URP8AEA9X-95a2a54f49cc-512' },
+      {
+        id: 'RM001',
+        name: 'Jared Dunn',
+        mail: 'jared.dunn@hooli.com',
+        role: 'Regional Manager',
+        manages: ['MM001', 'MM002'],
+        managedBy: null
+      },
+      {
+        id: 'RM002',
+        name: 'Peter Gregory',
+        mail: 'peter.gregory@hooli.com',
+        role: 'Regional Manager',
+        manages: ['MM003'],
+        managedBy: null
+      },
+      {
+        id: 'MM001',
+        name: 'Erlich Bachman',
+        mail: 'erlich.backman@hooli.com',
+        role: 'Merchant Manager',
+        manages: [],
+        managedBy: 'RM001'
+      },
+      {
+        id: 'MM002',
+        name: 'Jian Yang',
+        mail: 'jian.yang@hooli.com',
+        role: 'Merchant Manager',
+        manages: [],
+        managedBy: 'RM001'
+      },
+      {
+        id: 'MM003',
+        name: 'Gilfoyle',
+        mail: 'gilfoyle@hooli.com',
+        role: 'Merchant Manager',
+        manages: [],
+        managedBy: 'RM002'
+      }
     ]
   }),
   actions: {
