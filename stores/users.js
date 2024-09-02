@@ -59,6 +59,17 @@ export const useUsersStore = defineStore('users', {
     },
     getUserByName(name) {
       return this.availableUsers.find(u => u.name === name) || null
+    },
+    setCurrentUser(userId) {
+      this.currentUser = this.availableUsers.find(u => u.id === userId) || null
+    },
+    clearCurrentUser() {
+      this.currentUser = null
+    },
+    initializeCurrentUser() {
+      if (!this.currentUser && this.availableUsers.length > 0) {
+        this.setCurrentUser(this.availableUsers[0].id)
+      }
     }
   },
   getters: {

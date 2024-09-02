@@ -50,7 +50,7 @@
     <!-- Navigation -->
     <nav class="flex-1">
     <ul class="space-y-2 px-4">
-      <li v-for="item in menuItems" :key="item.label">
+      <li v-for="item in filteredMenuItems" :key="item.label">
         <NuxtLink
           v-if="!item.children && !item.disabled"
           :to="item.to"
@@ -131,6 +131,12 @@ watch(selectedUser, (newUser) => {
     authStore.login(newUser)
   }
 })
+
+const isRegionalManager = computed(() => currentUser.value?.role === 'Regional Manager')
+
+const filteredMenuItems = computed(() => 
+  menuItems.filter(item => item.label !== 'Merchants' || isRegionalManager.value)
+)
 
 const logout = () => {
   authStore.logout()
