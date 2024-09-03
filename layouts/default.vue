@@ -29,4 +29,11 @@
 definePageMeta({
   middleware: ["auth"]
 })
+
+import { useAuthStore } from '~/stores/auth'
+import { storeToRefs } from 'pinia'
+
+const authStore = useAuthStore()
+
+authStore.initializeAuth()
 </script>

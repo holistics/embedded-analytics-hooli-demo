@@ -129,6 +129,8 @@ const userOptions = computed(() => usersStore.availableUsers)
 watch(selectedUser, (newUser) => {
   if (newUser && newUser.name !== currentUser.value?.name) {
     authStore.login(newUser)
+    usersStore.setCurrentUser(newUser)
+    usersStore.setUserChangedFlag(false)
   }
 })
 

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useAuthStore } from './auth'
 
 export const useUsersStore = defineStore('users', {
   state: () => ({
@@ -9,7 +10,8 @@ export const useUsersStore = defineStore('users', {
         mail: 'jared.dunn@hooli.com',
         role: 'Regional Manager',
         manages: ['MM001', 'MM002'],
-        managedBy: null
+        managedBy: null,
+        merchantId: '561'
       },
       {
         id: 'RM002',
@@ -17,7 +19,8 @@ export const useUsersStore = defineStore('users', {
         mail: 'peter.gregory@hooli.com',
         role: 'Regional Manager',
         manages: ['MM003'],
-        managedBy: null
+        managedBy: null,
+        merchantId: '483'
       },
       {
         id: 'MM001',
@@ -25,7 +28,8 @@ export const useUsersStore = defineStore('users', {
         mail: 'erlich.backman@hooli.com',
         role: 'Merchant Manager',
         manages: [],
-        managedBy: 'RM001'
+        managedBy: 'RM001',
+        merchantId: '561'
       },
       {
         id: 'MM002',
@@ -33,7 +37,8 @@ export const useUsersStore = defineStore('users', {
         mail: 'jian.yang@hooli.com',
         role: 'Merchant Manager',
         manages: [],
-        managedBy: 'RM001'
+        managedBy: 'RM001',
+        merchantId: '561'
       },
       {
         id: 'MM003',
@@ -41,38 +46,84 @@ export const useUsersStore = defineStore('users', {
         mail: 'gilfoyle@hooli.com',
         role: 'Merchant Manager',
         manages: [],
-        managedBy: 'RM002'
+        managedBy: 'RM002',
+        merchantId: '483'
       }
-    ]
+    ],
+    userChangedFlag: false
   }),
   actions: {
+    setCurrentUser(user) {
+      const authStore = useAuthStore()
+      authStore.currentUser = user
+      this.userChangedFlag = true
+    },
+
+    clearCurrentUser() {
+      const authStore = useAuthStore()
+      authStore.currentUser = null
+      this.userChangedFlag = true
+    },
+    getUserById(userId) {
+      return this.availableUsers.find(u => u.id === userId) || null
+    },
+
     addUser(user) {
-      if (!this.availableUsers.some(u => u.name === user.name)) {
+      if (!this.availableUsers.some(u => u.id === user.id)) {
         this.availableUsers.push(user)
       }
     },
-    removeUser(user) {
-      const index = this.availableUsers.findIndex(u => u.name === user.name)
+
+    removeUser(userId) {
+      const index = this.availableUsers.findIndex(u => u.id === userId)
       if (index > -1) {
         this.availableUsers.splice(index, 1)
       }
     },
-    getUserByName(name) {
-      return this.availableUsers.find(u => u.name === name) || null
-    },
-    setCurrentUser(userId) {
-      this.currentUser = this.availableUsers.find(u => u.id === userId) || null
-    },
-    clearCurrentUser() {
-      this.currentUser = null
-    },
+
     initializeCurrentUser() {
+      this.loadCurrentUserFromLocalStorage()
       if (!this.currentUser && this.availableUsers.length > 0) {
         this.setCurrentUser(this.availableUsers[0].id)
       }
+    },
+
+    resetUserChangedFlag() {
+      this.userChangedFlag = false
+    },
+
+    setUserChangedFlag(flag) {
+      this.userChangedFlag = flag
+    },
+
+    // New method to save current user to local storage
+    saveCurrentUserToLocalStorage() {
+      if (this.currentUser) {
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+      }
+    },
+
+    // New method to load current user from local storage
+    loadCurrentUserFromLocalStorage() {
+      const storedUser = localStorage.getItem('currentUser')
+      if (storedUser) {
+        this.currentUser = JSON.parse(storedUser)
+        this.userChangedFlag = true
+      }
+    },
+
+    // New method to remove current us  er from local storage
+    removeCurrentUserFromLocalStorage() {
+      localStorage.removeItem('currentUser')
     }
   },
+
   getters: {
-    getDefaultUser: (state) => state.availableUsers[0] || null
+    currentUser() {
+      const authStore = useAuthStore()
+      return authStore.currentUser
+    },
+    getDefaultUser: (state) => state.availableUsers[0] || null,
+    hasUserChanged: (state) => state.userChangedFlag
   }
 })

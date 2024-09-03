@@ -17,19 +17,59 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
+import { useAuthStore } from '~/stores/auth'
+import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 
-const appConfig = useAppConfig()
+const authStore = useAuthStore()
+const { currentUser } = storeToRefs(authStore)
+
 const iframeUrl = ref('')
+const isLoading = ref(true)
+const error = ref(null)
 
-const { data, error } = await useFetch('/api/business')
+// Function to make the API call
+const fetchBusinessData = async () => {
+  isLoading.value = true
+  error.value = null
+  
+  try {
+    const { data: responseData, error: responseError } = await useFetch('/api/business', {
+      method: 'POST',
+      body: { user: currentUser.value }
+    })
 
-if (data.value) {
-  iframeUrl.value = `https://secure.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
+    if (responseError.value) {
+      throw new Error(responseError.value.message)
+    }
+
+    if (responseData.value && responseData.value.embed_code && responseData.value.token) {
+      iframeUrl.value = `https://secure.holistics.io/embed/${responseData.value.embed_code}?_token=${responseData.value.token}`
+    } else {
+      iframeUrl.value = ''
+    }
+  } catch (e) {
+    console.error('Error fetching business data:', e)
+    error.value = e.message || 'An error occurred while fetching data'
+  } finally {
+    isLoading.value = false
+  }
 }
 
-if (error.value) {
-  console.error('Error fetching iframe token:', error.value)
-}
+// Make initial API call when component mounts
+onMounted(() => {
+  if (currentUser.value) {
+    fetchBusinessData()
+  }
+})
+
+// Watch for changes in currentUser
+watch(currentUser, (newUser) => {
+  if (newUser) {
+    fetchBusinessData()
+  } else {
+    iframeUrl.value = ''
+  }
+})
 </script>
