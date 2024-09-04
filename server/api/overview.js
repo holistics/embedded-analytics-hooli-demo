@@ -1,32 +1,22 @@
-import jwt from 'jsonwebtoken'
+import { generateToken } from './generator'
 
 export default defineEventHandler(async (event) => {
-  const embed_code = "46bb4fb08f14ac1497715cd2"
-  const secret_key = "2dbc4a9a5f85edfe2b4111cfb023411ec85ca3257ac2038f74abc5b654936fd22763fefed5ecda9d7ec0876c5bef6d0e24b7a2176d378f1a182fe8394d0fac4f"
-  const expired_time = Math.floor(Date.now() / 1000) + (24 * 60 * 60 * 1000)
+  try {
+    const body = await readBody(event)
+    const { user } = body
 
-  const settings = {
-      "enable_export_data": false,
-      "default_timezone": null,
-      "allow_to_change_timezone": false
-  };
+    if (!user) {
+      throw createError({
+        statusCode: 401,
+        statusMessage: 'Unauthorized',
+      })
+    }
 
-  const permissions = {
-    "row_based": []
-  };
-
-  const filters = {};
-
-  const payload = {
-    settings: settings,
-    permissions: permissions,
-    filters: filters,
-    exp: expired_time
-  }
-  const token = jwt.sign(payload, secret_key);
-
-  return {
-    embed_code,
-    token
+    return generateToken('overview', user)
+  } catch (error) {
+    throw createError({
+      statusCode: error.statusCode || 500,
+      statusMessage: error.statusMessage || 'Internal Server Error',
+    })
   }
 })

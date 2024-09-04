@@ -2,7 +2,7 @@
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold text-gray-800 mb-4">Metrics</h1>
-    
+
     <kpipanel class="mb-8" />
   </div>
   <div class="p-4">
@@ -17,59 +17,38 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
-
 const iframeUrl = ref('')
-const isLoading = ref(true)
-const error = ref(null)
 
-// Function to make the API call
-const fetchBusinessData = async () => {
-  isLoading.value = true
-  error.value = null
-  
-  try {
-    const { data: responseData, error: responseError } = await useFetch('/api/business', {
-      method: 'POST',
-      body: { user: currentUser.value }
-    })
-
-    if (responseError.value) {
-      throw new Error(responseError.value.message)
-    }
-
-    if (responseData.value && responseData.value.embed_code && responseData.value.token) {
-      iframeUrl.value = `https://secure.holistics.io/embed/${responseData.value.embed_code}?_token=${responseData.value.token}`
-    } else {
-      iframeUrl.value = ''
-    }
-  } catch (e) {
-    console.error('Error fetching business data:', e)
-    error.value = e.message || 'An error occurred while fetching data'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-// Make initial API call when component mounts
-onMounted(() => {
-  if (currentUser.value) {
-    fetchBusinessData()
-  }
+const { data, error } = useFetch('/api/business', {
+  method: 'POST',
+  body: computed(() => ({ user: currentUser.value })),
+  watch: [currentUser]
 })
 
-// Watch for changes in currentUser
-watch(currentUser, (newUser) => {
-  if (newUser) {
-    fetchBusinessData()
+// Watch for changes in the API response
+watch(() => data.value, (newData) => {
+  console.log('test')
+  if (newData && newData.embed_code && newData.token) {
+    iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
   } else {
     iframeUrl.value = ''
   }
 })
+
+// Handle potential errors
+watch(() => error.value, (newError) => {
+  if (newError) {
+    console.error('Error fetching business data:', newError)
+    // Handle the error (e.g., show a notification to the user)
+  }
+})
+
+authStore.initializeAuth()
 </script>

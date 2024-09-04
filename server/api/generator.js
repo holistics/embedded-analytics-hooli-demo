@@ -21,18 +21,174 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": [user.merchantId]
+            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
           }
         ]
       };
     },
     filters: {}
   },
+  {
+    name: 'overview',
+    embed_code: "46bb4fb08f14ac1497715cd2",
+    secret_key: "2dbc4a9a5f85edfe2b4111cfb023411ec85ca3257ac2038f74abc5b654936fd22763fefed5ecda9d7ec0876c5bef6d0e24b7a2176d378f1a182fe8394d0fac4f",
+    settings: {
+      "enable_export_data": false,
+      "default_timezone": null,
+      "allow_to_change_timezone": false
+    },
+    getPermissions: (user) => {
+      return {
+        "row_based": [
+          {
+            "path": {
+              "dataset": "demo.ds_ecommerce",
+              "model": "demo.dim_merchants",
+              "field": "id"
+            },
+            "operator": "is",
+            "modifier": null,
+            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+          }
+        ]
+      };
+    },
+    filters: {
+      "f1": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "last",
+          "values": [
+            "3"
+          ],
+          "modifier": "month"
+        }
+      }
+    },
+  },
+  {
+    name: 'marketing',
+    embed_code: "ba93db5151640b65f92b01b0",
+    secret_key: "fe8fc8fddfb031a8eecb12f317393cb92f154b82e080b6d00eb2ab4c97f9621becd297012e1b8688080e39755813012f85acd3261943c98b75e3bf7f5fa89962",
+    settings: {
+      "enable_export_data": false,
+      "default_timezone": null,
+      "allow_to_change_timezone": false
+    },
+    getPermissions: (user) => {
+      return {
+        "row_based": [
+         
+        ]
+      };
+    },
+    filters: {
+      "f1": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "is",
+          "values": [
+            "youtube_blogger"
+          ],
+          "modifier": null
+        }
+      }
+    }
+  },
+  {
+    name: 'sale',
+    embed_code: "69bf7c07e7d6a0cc619e231b",
+    secret_key: "0c31cc7817c7ab6f8d8074bcb39023cc9fd605d6c9f975ad8843ee85cd362d77af7e8f07aeb6f5b99b24cbe9d2fab45d7d0506dde62d6f90f454da8c2400ceea",
+    settings: {
+      "enable_export_data": false,
+      "default_timezone": null,
+      "allow_to_change_timezone": false
+    },
+    getPermissions: (user) => {
+      return {
+        "row_based": [
+          {
+            "path": {
+              "dataset": "demo.ds_ecommerce2",
+              "model": "demo.dim_merchants",
+              "field": "id"
+            },
+            "operator": "is",
+            "modifier": null,
+            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+          }
+        ]
+      };
+    },
+    filters: {
+      "f2": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "matches",
+          "values": [
+            null
+          ],
+          "modifier": null
+        }
+      },
+      "f3": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "is",
+          "values": [],
+          "modifier": null
+        }
+      }
+    }
+  },
+  {
+    name: 'product',
+    embed_code: "c333b136cdcf521e7fb62531",
+    secret_key: "21beff6ae9b238ff5382a96aaf78ca818b60c54c80f4e8a57c06c67cc7f11ecc61015c229c911a23341225118d134845c0205f061ded5ec05863ac38f360cda2",
+    settings: {
+      "enable_export_data": false,
+      "default_timezone": null,
+      "allow_to_change_timezone": false
+    },
+    getPermissions: (user) => {
+      return {
+        "row_based": [
+          {
+            "path": {
+              "dataset": "demo.ds_ecommerce2",
+              "model": "demo.dim_merchants",
+              "field": "id"
+            },
+            "operator": "is",
+            "modifier": null,
+            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+          }
+        ]
+      };
+    },
+    filters: {
+      "f1": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "is",
+          "values": [],
+          "modifier": null
+        }
+      },
+      "f2": {
+        "hidden": false,
+        "default_condition": {
+          "operator": "is",
+          "values": [],
+          "modifier": null
+        }
+      }
+    }
+  }
 ];
 
 export function generateToken(name, user) {
   const endpoint = endpoints.find(e => e.name === name);
-  console.log('endpoint: ', endpoint)
 
   if (!endpoint) {
     throw createError({
@@ -57,7 +213,6 @@ export function generateToken(name, user) {
     exp: expired_time
   };
   
-  console.log(JSON.stringify(payload))
   const token = jwt.sign(payload, endpoint.secret_key);
 
   return {

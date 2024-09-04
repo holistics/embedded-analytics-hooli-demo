@@ -10,18 +10,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useAuthStore } from '~/stores/auth'
+import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 
+const authStore = useAuthStore()
+const { currentUser } = storeToRefs(authStore)
 const iframeUrl = ref('')
 
-const { data, error } = await useFetch('/api/product')
+const { data, error } = useFetch('/api/product', {
+  method: 'POST',
+  body: computed(() => ({ user: currentUser.value })),
+  watch: [currentUser]
+})
 
-if (data.value) {
-  iframeUrl.value = `https://secure.holistics.io/embed/${data.value.embed_code}?_token=${data.value.token}`
-}
+// Watch for changes in the API response
+watch(() => data.value, (newData) => {
+  console.log('test')
+  if (newData && newData.embed_code && newData.token) {
+    iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
+  } else {
+    iframeUrl.value = ''
+  }
+})
 
-if (error.value) {
-  console.error('Error fetching iframe token:', error.value)
-}
+// Handle potential errors
+watch(() => error.value, (newError) => {
+  if (newError) {
+    console.error('Error fetching business data:', newError)
+    // Handle the error (e.g., show a notification to the user)
+  }
+})
+
+authStore.initializeAuth()
 </script>
