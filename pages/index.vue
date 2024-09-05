@@ -40,8 +40,9 @@ import { ref, watch } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
-import { useFetch } from '#app'
+import { useFetch, useRoute } from '#app'
 
+const route = useRoute()
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
 const iframeUrl = ref('')
@@ -106,6 +107,13 @@ watch(filteredMerchants, (newFilteredMerchants) => {
     selectedMerchant.value = newFilteredMerchants[0].id
   } else if (newFilteredMerchants.length === 0) {
     selectedMerchant.value = ''
+  }
+}, { immediate: true })
+
+// Watch for changes in the route query
+watch(() => route.query.selectedMerchant, (newSelectedMerchant) => {
+  if (newSelectedMerchant && filteredMerchants.value.some(m => m.id === newSelectedMerchant)) {
+    selectedMerchant.value = newSelectedMerchant
   }
 }, { immediate: true })
 

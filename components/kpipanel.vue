@@ -32,7 +32,7 @@ const kpis = [
     value: '$5.8K',
     icon: 'i-heroicons-currency-dollar',
     iconClass: 'text-[#DC4C3D]',
-    change: '12.38%',
+    change: '+12.38%',
     changeClass: 'text-green-600',
   },
   {

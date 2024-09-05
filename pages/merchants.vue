@@ -18,7 +18,7 @@
               <p class="text-gray-600">Merchant Manager: {{ merchant.managerName }}</p>
             </div>
             <div class="flex mt-2 gap-2">
-              <UButton color="primary">Overview</UButton>
+              <UButton color="primary" @click="goToOverview(merchant.id)">Overview</UButton>
               <UButton color="gray">See all orders</UButton>
             </div>
           </div>
@@ -37,7 +37,9 @@ import { storeToRefs } from 'pinia'
 import { useAuthStore } from '~/stores/auth'
 import { useUsersStore } from '~/stores/users'
 import { useMerchantsStore } from '~/stores/merchants'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
 
@@ -59,12 +61,16 @@ const isRegionalManager = computed(() => {
 })
 
 const filteredMerchants = computed(() => {
-  if (isRegionalManager.value && currentUser.value?.merchantId) {
-    return availableMerchants.value.filter(merchant => 
-      currentUser.value.merchantId.includes(merchant.id)
-    )
-  }
-  return []
+  if (!isRegionalManager.value || !Array.isArray(availableUsers.value)) return []
+  
+  const managedMerchantIds = currentUser.value.manages || []
+  
+  return availableMerchants.value.filter(merchant => 
+    managedMerchantIds.includes(merchant.managerId)
+  ).map(merchant => ({
+    ...merchant,
+    managerName: getManagerName(merchant.managerId)
+  }))
 })
 
 watch(currentUser, (newUser) => {
@@ -74,4 +80,8 @@ watch(currentUser, (newUser) => {
     isLoading.value = true
   }
 }, { immediate: true })
+
+const goToOverview = (merchantId) => {
+  router.push({ path: '/', query: { selectedMerchant: merchantId } })
+}
 </script>
