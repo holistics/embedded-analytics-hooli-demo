@@ -4,7 +4,7 @@
     <template v-if="isLoading">
       <p>Loading...</p>
     </template>
-    <template v-else-if="hasPermission">
+    <template v-else-if="isRegionalManager">
       <UCard
         v-for="merchant in filteredMerchants"
         :key="merchant.name"
@@ -36,6 +36,7 @@ import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '~/stores/auth'
 import { useUsersStore } from '~/stores/users'
+import { useMerchantsStore } from '~/stores/merchants'
 
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
@@ -45,30 +46,25 @@ const { availableUsers } = storeToRefs(usersStore)
 
 const isLoading = ref(true)
 
-const hasPermission = computed(() => currentUser.value?.role === 'Regional Manager')
-
-const merchants = [
-  { id: 'M001', name: "Central Market Store", managerId: "MM001", img: "https://picsum.photos/seed/picsum/150" },
-  { id: 'M002', name: "Riverfront Bazaar", managerId: "MM002", img: "https://picsum.photos/seed/picsum/150" },
-  { id: 'M003', name: "Neighborhood Nook", managerId: "MM003", img: "https://picsum.photos/seed/picsum/150" },
-]
-
 const getManagerName = (managerId) => {
   const manager = availableUsers.value?.find(user => user.id === managerId)
   return manager ? manager.name : 'Unknown'
 }
 
+const merchantsStore = useMerchantsStore()
+const { availableMerchants } = storeToRefs(merchantsStore)
+
+const isRegionalManager = computed(() => {
+  return currentUser.value?.role === 'Regional Manager'
+})
+
 const filteredMerchants = computed(() => {
-  if (!hasPermission.value || !Array.isArray(availableUsers.value)) return []
-  
-  const managedMerchantIds = currentUser.value.manages || []
-  
-  return merchants.filter(merchant => 
-    managedMerchantIds.includes(merchant.managerId)
-  ).map(merchant => ({
-    ...merchant,
-    managerName: getManagerName(merchant.managerId)
-  }))
+  if (isRegionalManager.value && currentUser.value?.merchantId) {
+    return availableMerchants.value.filter(merchant => 
+      currentUser.value.merchantId.includes(merchant.id)
+    )
+  }
+  return []
 })
 
 watch(currentUser, (newUser) => {

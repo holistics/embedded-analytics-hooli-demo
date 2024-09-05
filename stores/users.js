@@ -29,7 +29,7 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM001',
-        merchantId: '561'
+        merchantId: ['561']
       },
       {
         id: 'MM002',
@@ -38,7 +38,7 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM001',
-        merchantId: '483'
+        merchantId: ['483']
       },
       {
         id: 'MM003',
@@ -47,7 +47,7 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM002',
-        merchantId: '255'
+        merchantId: ['255']
       }
     ],
     userChangedFlag: false

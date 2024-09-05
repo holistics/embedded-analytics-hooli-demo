@@ -15,13 +15,13 @@ const endpoints = [
         "row_based": [
           {
             "path": {
-              "dataset": "demo.ds_ecommerce2",
+              "dataset": "demo.ds_ecommerce",
               "model": "demo.dim_merchants",
               "field": "id"
             },
             "operator": "is",
             "modifier": null,
-            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+            "values": user.merchantId
           }
         ]
       };
@@ -48,7 +48,7 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+            "values": user.merchantId
           }
         ]
       };
@@ -109,13 +109,13 @@ const endpoints = [
         "row_based": [
           {
             "path": {
-              "dataset": "demo.ds_ecommerce2",
+              "dataset": "demo.ds_ecommerce",
               "model": "demo.dim_merchants",
               "field": "id"
             },
             "operator": "is",
             "modifier": null,
-            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+            "values": user.merchantId
           }
         ]
       };
@@ -155,13 +155,13 @@ const endpoints = [
         "row_based": [
           {
             "path": {
-              "dataset": "demo.ds_ecommerce2",
+              "dataset": "demo.ds_ecommerce",
               "model": "demo.dim_merchants",
               "field": "id"
             },
             "operator": "is",
             "modifier": null,
-            "values": Array.isArray(user.merchantId) ? user.merchantId : [user.merchantId]
+            "values": user.merchantId
           }
         ]
       };
