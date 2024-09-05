@@ -10,7 +10,7 @@ const endpoints = [
       "default_timezone": null,
       "allow_to_change_timezone": false
     },
-    getPermissions: (user) => {
+    getPermissions: (merchantId) => {
       return {
         "row_based": [
           {
@@ -21,7 +21,7 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": user.merchantId
+            "values": merchantId
           }
         ]
       };
@@ -37,7 +37,7 @@ const endpoints = [
       "default_timezone": null,
       "allow_to_change_timezone": false
     },
-    getPermissions: (user) => {
+    getPermissions: (merchantId) => {
       return {
         "row_based": [
           {
@@ -48,7 +48,7 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": user.merchantId
+            "values": merchantId
           }
         ]
       };
@@ -75,7 +75,7 @@ const endpoints = [
       "default_timezone": null,
       "allow_to_change_timezone": false
     },
-    getPermissions: (user) => {
+    getPermissions: (merchantId) => {
       return {
         "row_based": [
          
@@ -104,7 +104,7 @@ const endpoints = [
       "default_timezone": null,
       "allow_to_change_timezone": false
     },
-    getPermissions: (user) => {
+    getPermissions: (merchantId) => {
       return {
         "row_based": [
           {
@@ -115,7 +115,7 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": user.merchantId
+            "values": merchantId
           }
         ]
       };
@@ -150,7 +150,7 @@ const endpoints = [
       "default_timezone": null,
       "allow_to_change_timezone": false
     },
-    getPermissions: (user) => {
+    getPermissions: (merchantId) => {
       return {
         "row_based": [
           {
@@ -161,7 +161,7 @@ const endpoints = [
             },
             "operator": "is",
             "modifier": null,
-            "values": user.merchantId
+            "values": merchantId
           }
         ]
       };
@@ -187,7 +187,7 @@ const endpoints = [
   }
 ];
 
-export function generateToken(name, user) {
+export function generateToken(name, merchantId) {
   const endpoint = endpoints.find(e => e.name === name);
 
   if (!endpoint) {
@@ -197,10 +197,10 @@ export function generateToken(name, user) {
     });
   }
 
-  if (!user) {
+  if (!merchantId) {
     throw createError({
       statusCode: 401,
-      statusMessage: 'No current user found',
+      statusMessage: 'No current merchant found',
     });
   }
 
@@ -208,7 +208,7 @@ export function generateToken(name, user) {
 
   const payload = {
     settings: endpoint.settings,
-    permissions: endpoint.getPermissions(user),
+    permissions: endpoint.getPermissions(merchantId),
     filters: endpoint.filters,
     exp: expired_time
   };

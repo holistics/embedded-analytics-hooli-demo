@@ -22,11 +22,12 @@
               v-if="selectedUser"
               :src="selectedUser.avatar"
               :alt="selectedUser.name"
-              size="xs"
+              size="sm"
               class="mr-2"
             />
             <div class="flex flex-col cursor-pointer">
               <span>{{ selectedUser ? selectedUser.name : 'Select User' }}</span>
+              <p v-if="selectedUser" class="text-sm text-gray-500">{{ selectedUser.role }}</p>
             </div>
           </div>
         </template>

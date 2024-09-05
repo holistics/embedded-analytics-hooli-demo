@@ -22,7 +22,7 @@ const iframeUrl = ref('')
 
 const { data, error } = useFetch('/api/overview', {
   method: 'POST',
-  body: computed(() => ({ user: currentUser.value })),
+  body: computed(() => ({ merchantId: currentUser.value.merchantId })),
   watch: [currentUser]
 })
 

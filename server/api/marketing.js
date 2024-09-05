@@ -3,16 +3,16 @@ import { generateToken } from './generator'
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
-    const { user } = body
+    const { merchantId } = body
 
-    if (!user) {
+    if (!merchantId) {
       throw createError({
         statusCode: 401,
-        statusMessage: 'Unauthorized',
+        statusMessage: 'Unauthorized'
       })
     }
 
-    return generateToken('marketing', user)
+    return generateToken('marketing', merchantId)
   } catch (error) {
     throw createError({
       statusCode: error.statusCode || 500,
