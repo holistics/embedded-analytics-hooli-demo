@@ -10,19 +10,29 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useAuthStore } from '~/stores/auth'
+import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
+const merchantsStore = useMerchantsStore()
+const { selectedMerchant } = storeToRefs(merchantsStore)
 const iframeUrl = ref('')
+
+const merchantIdToSend = computed(() => {
+  if (currentUser.value?.role !== 'Regional Manager') {
+    return currentUser.value?.merchantId
+  }
+  return [selectedMerchant.value]
+})
 
 const { data, error } = useFetch('/api/sale', {
   method: 'POST',
-  body: computed(() => ({ merchantId: currentUser.value.merchantId })),
-  watch: [currentUser]
+  body: computed(() => ({ merchantId: merchantIdToSend.value })),
+  watch: [currentUser, selectedMerchant]
 })
 
 // Watch for changes in the API response
