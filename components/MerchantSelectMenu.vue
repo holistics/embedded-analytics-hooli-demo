@@ -7,7 +7,7 @@
       option-attribute="name"
       value-attribute="id"
       placeholder="Select a merchant"
-      class="flex min-w-[#150px]"
+      class="flex w-64"
     >
       <template #trigger="{ open }">
         <UButton color="gray" :icon="open ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" block>

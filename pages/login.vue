@@ -91,10 +91,10 @@ const router = useRouter()
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
 
-const selectedUser = ref(usersStore.availableUsers[0] ||null)
+const selectedUser = ref(usersStore.availableUsers[0] || null)
 const password = ref('')
 
-const userOptions = computed(() => 
+const userOptions = computed(() =>
   usersStore.availableUsers.map(user => ({
     name: user.name,
     role: user.role,
@@ -103,9 +103,9 @@ const userOptions = computed(() =>
   }))
 )
 
-const login = () => {
+const login = async () => {
   if (selectedUser.value) {
-    authStore.login(selectedUser.value)
+    await authStore.login(selectedUser.value)
     router.push('/')
   }
 }
