@@ -42,9 +42,11 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
+const merchantsStore = useMerchantsStore()
 
 const { currentUser } = storeToRefs(authStore)
 const { availableUsers } = storeToRefs(usersStore)
+const { availableMerchants } = storeToRefs(merchantsStore)
 
 const isLoading = ref(true)
 
@@ -52,9 +54,6 @@ const getManagerName = (managerId) => {
   const manager = availableUsers.value?.find(user => user.id === managerId)
   return manager ? manager.name : 'Unknown'
 }
-
-const merchantsStore = useMerchantsStore()
-const { availableMerchants } = storeToRefs(merchantsStore)
 
 const isRegionalManager = computed(() => {
   return currentUser.value?.role === 'Regional Manager'
@@ -65,7 +64,7 @@ const filteredMerchants = computed(() => {
   
   const managedMerchantIds = currentUser.value.manages || []
   
-  return availableMerchants.value.filter(merchant => 
+  return availableMerchants.value.filter(merchant =>
     managedMerchantIds.includes(merchant.managerId)
   ).map(merchant => ({
     ...merchant,
@@ -82,6 +81,10 @@ watch(currentUser, (newUser) => {
 }, { immediate: true })
 
 const goToOverview = (merchantId) => {
-  router.push({ path: '/', query: { selectedMerchant: merchantId } })
+  // Set the selected merchant in the store
+  merchantsStore.setSelectedMerchant(merchantId)
+  
+  // Navigate to the index page
+  router.push({ path: '/' })
 }
 </script>

@@ -33,30 +33,46 @@ const merchantIdToSend = computed(() => {
   if (currentUser.value?.role !== 'Regional Manager') {
     return currentUser.value?.merchantId
   }
-  return [selectedMerchant.value]
+  return merchantsStore.getSelectedMerchantIds(currentUser.value)
 })
 
-const { data, error } = useFetch('/api/business', {
-  method: 'POST',
-  body: computed(() => ({ merchantId: merchantIdToSend.value })),
-  watch: [currentUser, selectedMerchant]
+const shouldFetchData = computed(() => {
+  return !!currentUser.value && !!selectedMerchant.value
 })
 
-// Watch for changes in the API response
-watch(() => data.value, (newData) => {
-  console.log('API response received')
+const { data, error, refresh } = useFetch(
+  '/api/business',
+  {
+    method: 'POST',
+    body: computed(() => ({ merchantId: merchantIdToSend.value })),
+  },
+  {
+    server: false,
+    immediate: false,
+  }
+)
+
+watch(shouldFetchData, (newValue) => {
+  if (newValue) {
+    refresh()
+  }
+}, { immediate: true })
+
+watch(data, (newData) => {
   if (newData && newData.embed_code && newData.token) {
     iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
   } else {
     iframeUrl.value = ''
   }
-}, { immediate: true })
+})
 
-// Handle potential errors
-watch(() => error.value, (newError) => {
+watch(error, (newError) => {
   if (newError) {
     console.error('Error fetching business data:', newError)
     // Handle the error (e.g., show a notification to the user)
   }
 })
+
+// Initialize auth
+authStore.initializeAuth()
 </script>

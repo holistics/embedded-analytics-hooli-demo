@@ -3,8 +3,8 @@
     <div v-if="isRegionalManager" class="flex items-center space-x-4 mb-8">
       <h3 class="text-lg font-semibold whitespace-nowrap">Filter by Merchants</h3>
       <USelectMenu
-        v-model="selectedMerchant"
-        :options="filteredMerchants"
+        v-model="selectedMerchantLocal"
+        :options="merchantOptions"
         option-attribute="name"
         value-attribute="id"
         placeholder="Select a merchant"
@@ -40,6 +40,7 @@ const merchantsStore = useMerchantsStore()
 const { availableMerchants, selectedMerchant } = storeToRefs(merchantsStore)
 
 const iframeUrl = ref('')
+const selectedMerchantLocal = ref(selectedMerchant.value)
 
 const isRegionalManager = computed(() => {
   return currentUser.value?.role === 'Regional Manager'
@@ -49,7 +50,7 @@ const merchantIdToSend = computed(() => {
   if (!isRegionalManager.value) {
     return currentUser.value?.merchantId
   }
-  return [selectedMerchant.value]
+  return merchantsStore.getSelectedMerchantIds(currentUser.value)
 })
 
 const { data, error } = useFetch('/api/overview', {
@@ -60,7 +61,7 @@ const { data, error } = useFetch('/api/overview', {
 
 // Watch for changes in the API response
 watch(() => data.value, (newData) => {
-  console.log('test')
+  console.log('Overview data received')
   if (newData && newData.embed_code && newData.token) {
     iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
   } else {
@@ -71,12 +72,18 @@ watch(() => data.value, (newData) => {
 // Handle potential errors
 watch(() => error.value, (newError) => {
   if (newError) {
-    console.error('Error fetching business data:', newError)
+    console.error('Error fetching overview data:', newError)
     // Handle the error (e.g., show a notification to the user)
   }
 })
 
-const selectedMerchantName = computed(() => merchantsStore.getSelectedMerchantName)
+const selectedMerchantName = computed(() => {
+  if (selectedMerchantLocal.value === 'all') {
+    return 'All Merchants'
+  }
+  const selected = filteredMerchants.value.find(m => m.id === selectedMerchantLocal.value)
+  return selected ? selected.name : ''
+})
 
 const filteredMerchants = computed(() => {
   if (isRegionalManager.value && currentUser.value?.merchantId) {
@@ -87,13 +94,31 @@ const filteredMerchants = computed(() => {
   return []
 })
 
+const merchantOptions = computed(() => {
+  if (isRegionalManager.value) {
+    return [
+      { id: 'all', name: 'All Merchants' },
+      ...filteredMerchants.value
+    ]
+  }
+  return filteredMerchants.value
+})
+
+watch(selectedMerchantLocal, (newValue) => {
+  merchantsStore.setSelectedMerchant(newValue)
+})
+
 watch(filteredMerchants, (newFilteredMerchants) => {
-  if (newFilteredMerchants.length > 0 && !newFilteredMerchants.some(m => m.id === selectedMerchant.value)) {
-    merchantsStore.setSelectedMerchant(newFilteredMerchants[0].id)
+  if (newFilteredMerchants.length > 0 && !newFilteredMerchants.some(m => m.id === selectedMerchantLocal.value)) {
+    selectedMerchantLocal.value = 'all'
   } else if (newFilteredMerchants.length === 0) {
-    merchantsStore.setSelectedMerchant(null)
+    selectedMerchantLocal.value = null
   }
 }, { immediate: true })
+
+watch(selectedMerchant, (newValue) => {
+  selectedMerchantLocal.value = newValue
+})
 
 authStore.initializeAuth()
 </script>

@@ -26,7 +26,7 @@ const merchantIdToSend = computed(() => {
   if (currentUser.value?.role !== 'Regional Manager') {
     return currentUser.value?.merchantId
   }
-  return [selectedMerchant.value]
+  return merchantsStore.getSelectedMerchantIds(currentUser.value)
 })
 
 const { data, error } = useFetch('/api/sale', {
