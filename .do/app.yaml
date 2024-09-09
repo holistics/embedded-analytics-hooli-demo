@@ -3,7 +3,7 @@ services:
 - name: hooli
   image:
     registry: ghcr.io
-    registry_credentials: EV[1:zVFVjnIU7NEGyAT6QfxeLEbshkdsm7Jb:WUVBhu/5mRvjhdoSWnrFS5SYM50UFtO0BDx0O3vLev206E5Gq0plibuRUVdkRESjDlMev1oFHqfvSZ6AxbWKTQ==]
+    registry_credentials: EV[1:r40Yk/+/t1vyGsIniuioO11oI/joicDa:p6XWR3avDlpBtnu/2PEb/0+xdLxJVFCDJNrXTNMTuSgsRcdvbQETEu1gnsBa0zgnyPH4l/VkTycuYaszSYNmeg==]
     registry_type: GHCR
     repository: holistics/hooli
     tag: latest
