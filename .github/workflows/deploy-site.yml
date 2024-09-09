@@ -3,8 +3,6 @@ name: Build, Push and Deploy a Docker Image
 on:
   push:
     branches: [master]
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   build-push-deploy-image:
@@ -38,7 +36,6 @@ jobs:
           push: true
           tags: ghcr.io/holistics/hooli:latest
           cache-from: type=gha
-          cache-to: type=gha,mode=max
       - name: Deploy the app
         uses: digitalocean/app_action/deploy@v2
         env:
