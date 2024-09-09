@@ -39,9 +39,9 @@ jobs:
           tags: ghcr.io/holistics/hooli:latest
           cache-from: type=gha
           # cache-to: type=gha,mode=max
-      # - name: Deploy the app
-      #   uses: digitalocean/app_action/deploy@v2
-      #   env:
-      #     SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
-      #   with:
-      #     token: ${{ env.HOOLI_APP_TOKEN }} 
+      - name: Deploy the app
+        uses: digitalocean/app_action/deploy@v2
+        env:
+          SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
+        with:
+          token: ${{ env.HOOLI_APP_TOKEN }} 
