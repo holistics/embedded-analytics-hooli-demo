@@ -1,9 +1,9 @@
 name: hooli
 services:
-- name: hooli-app
+- name: hooli
   image:
+    registry: ghcr.io
+    registry_credentials: EV[1:zVFVjnIU7NEGyAT6QfxeLEbshkdsm7Jb:WUVBhu/5mRvjhdoSWnrFS5SYM50UFtO0BDx0O3vLev206E5Gq0plibuRUVdkRESjDlMev1oFHqfvSZ6AxbWKTQ==]
     registry_type: GHCR
-    registry: holistics
-    repository: embedded-analytics-demo-hooli
-    registry_credentials: "vinh-hh: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"
+    repository: holistics/hooli
     tag: latest
