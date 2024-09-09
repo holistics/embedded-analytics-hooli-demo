@@ -1,0 +1,9 @@
+name: hooli
+services:
+- name: hooli-app
+  image:
+    registry_type: GHCR
+    registry: holistics
+    repository: embedded-analytics-demo-hooli
+    registry_credentials: "vinh-hh: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"
+    tag: latest
