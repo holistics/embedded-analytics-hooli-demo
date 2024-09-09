@@ -1,6 +1,8 @@
 name: hooli
+region: sgp
 services:
-- name: hooli
+- http_port: 3000
+  name: hooli
   image:
     registry: ghcr.io
     registry_credentials: EV[1:r40Yk/+/t1vyGsIniuioO11oI/joicDa:p6XWR3avDlpBtnu/2PEb/0+xdLxJVFCDJNrXTNMTuSgsRcdvbQETEu1gnsBa0zgnyPH4l/VkTycuYaszSYNmeg==]
