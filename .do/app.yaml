@@ -1,0 +1,23 @@
+domains:
+- domain: hooli.holistics.io
+  type: PRIMARY
+ingress:
+  rules:
+  - component:
+      name: hooli
+    match:
+      path:
+        prefix: /
+name: hooli
+region: sgp
+services:
+- http_port: 3000
+  image:
+    registry: ghcr.io
+    registry_credentials: EV[1:85DYNZYZlugmwy9BksdFqhEQRgidma/3:HB3WcLy8isVuqrX3D0l8LMjbtaB698bRZinUs/HXVWgbSAWPWT4tc4mA/g5NB0cFGIklkIiRf/iyPnG/mXRbreyPWK3FtNMgQPnhiiRDRg==]
+    registry_type: GHCR
+    repository: holistics/hooli
+    tag: latest
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-0.5gb
+  name: hooli
