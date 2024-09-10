@@ -11,7 +11,8 @@ export const useUsersStore = defineStore('users', {
         role: 'Regional Manager',
         manages: ['MM001', 'MM002'],
         managedBy: null,
-        merchantId: ['561','483', '126', '135']
+        merchantId: ['561','483', '126', '135'],
+        avatar: "https://static.wikia.nocookie.net/silicon-valley/images/8/8f/Jared-dunn.png"
       },
       {
         id: 'RM002',
@@ -20,7 +21,9 @@ export const useUsersStore = defineStore('users', {
         role: 'Regional Manager',
         manages: ['MM003'],
         managedBy: null,
-        merchantId: ['255', '353', '661']
+        merchantId: ['255', '353', '661'],
+        avatar: "https://static.wikia.nocookie.net/silicon-valley/images/b/be/Peter.jpeg"
+
       },
       {
         id: 'MM001',
@@ -29,7 +32,9 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM001',
-        merchantId: ['561']
+        merchantId: ['561'],
+        avatar: "https://static.wikia.nocookie.net/silicon-valley/images/b/bd/Erlich_Season_One.jpg"
+
       },
       {
         id: 'MM002',
@@ -38,7 +43,9 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM001',
-        merchantId: ['483']
+        merchantId: ['483'],
+        avatar: "https://static.wikia.nocookie.net/silicon-valley/images/4/49/Jian_Yang.jpg"
+
       },
       {
         id: 'MM003',
@@ -47,7 +54,9 @@ export const useUsersStore = defineStore('users', {
         role: 'Merchant Manager',
         manages: [],
         managedBy: 'RM002',
-        merchantId: ['255']
+        merchantId: ['255'],
+        avatar: "https://static.wikia.nocookie.net/silicon-valley/images/2/20/Bertram_Gilfoyle.jpg"
+
       }
     ],
     userChangedFlag: false
