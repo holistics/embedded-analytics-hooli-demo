@@ -37,7 +37,6 @@ const { data, error } = useFetch('/api/product', {
 
 // Watch for changes in the API response
 watch(() => data.value, (newData) => {
-  console.log('Product data received')
   if (newData && newData.embed_code && newData.token) {
     iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
   } else {

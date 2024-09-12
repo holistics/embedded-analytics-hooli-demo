@@ -7,9 +7,12 @@
       <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-8" />
     </div>
 
-        <div class="p-4 relative">
+    <div 
+      class="p-4 relative" 
+      @mouseenter="isOpen = true"
+      @mouseleave="isOpen = false"
+    >
       <div
-        @click="isOpen = !isOpen"
         class="flex items-center justify-between bg-gray-800 p-3 rounded-md cursor-pointer"
       >
         <div class="flex items-center">
@@ -40,8 +43,8 @@
         leave-to-class="transform scale-95 opacity-0"
       >
         <div v-if="isOpen" class="absolute left-4 right-4 mt-2 bg-gray-800 rounded-md py-2 z-10 shadow-lg">
-          <div class="px-3 py-2 text-xs font-semibold text-gray-500 uppercase">
-            Switch account
+          <div class="px-3 py-2 text-xs font-semibold text-gray-500">
+            Switch Account
           </div>
           <div
             v-for="user in userOptions"
@@ -73,7 +76,7 @@
               <template #leading>
                 <UIcon name="i-heroicons-arrow-right-on-rectangle" />
               </template>
-              Logout
+              Log out
             </UButton>
           </div>
         </div>
@@ -142,7 +145,7 @@ const usersStore = useUsersStore()
 const { currentUser } = storeToRefs(authStore)
 
 const isOpen = ref(false)
-const selectedUser = ref(usersStore.getUserById(authStore.currentUser?.id) || usersStore.getDefaultUser)
+const selectedUser = ref(usersStore.getUserById(authStore.currentUser?.id) || usersStore.getDefaultUser.id)
 
 const userOptions = computed(() => usersStore.availableUsers)
 
@@ -163,7 +166,6 @@ watch(selectedUser, (newUser) => {
   if (newUser && newUser.name !== currentUser.value?.name) {
     authStore.login(newUser)
     usersStore.setCurrentUser(newUser)
-    usersStore.setUserChangedFlag(false)
   }
 })
 

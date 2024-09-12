@@ -59,9 +59,7 @@ const { data, error } = useFetch('/api/overview', {
   watch: [currentUser, selectedMerchant]
 })
 
-// Watch for changes in the API response
 watch(() => data.value, (newData) => {
-  console.log('Overview data received')
   if (newData && newData.embed_code && newData.token) {
     iframeUrl.value = `https://secure.holistics.io/embed/${newData.embed_code}?_token=${newData.token}`
   } else {
@@ -69,7 +67,6 @@ watch(() => data.value, (newData) => {
   }
 })
 
-// Handle potential errors
 watch(() => error.value, (newError) => {
   if (newError) {
     console.error('Error fetching overview data:', newError)
