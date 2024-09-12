@@ -14,7 +14,7 @@ services:
 - http_port: 3000
   image:
     registry: ghcr.io
-    registry_credentials: EV[1:85DYNZYZlugmwy9BksdFqhEQRgidma/3:HB3WcLy8isVuqrX3D0l8LMjbtaB698bRZinUs/HXVWgbSAWPWT4tc4mA/g5NB0cFGIklkIiRf/iyPnG/mXRbreyPWK3FtNMgQPnhiiRDRg==]
+    registry_credentials: EV[1:KV+hrNZG5N9gfLPEnRxhzRep2unvUGxj:MzU+pe6mYx48duTUUci+hlcqiC4tyZQu+spsgmvcJqJpdikezuD8rhaeRL3O7HYNsbkOzdYGgVyOLgzL+rioTA==]
     registry_type: GHCR
     repository: holistics/hooli
     tag: latest
