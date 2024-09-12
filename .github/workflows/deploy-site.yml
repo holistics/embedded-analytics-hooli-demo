@@ -2,7 +2,7 @@ name: Build, Push and Deploy a Docker Image
 
 on:
   push:
-    branches: [master]
+    branches: [master,feat/dockerize_app]
 
 jobs:
   build-push-deploy-image:
