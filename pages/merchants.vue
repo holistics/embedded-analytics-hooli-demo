@@ -7,15 +7,20 @@
     <template v-else-if="isRegionalManager">
       <UCard
         v-for="merchant in filteredMerchants"
-        :key="merchant.name"
+        :key="merchant.id"
         class="mb-4"
       >
         <div class="flex">
           <img :src="merchant.img" :alt="merchant.name" class="w-[150px] h-[150px] object-cover rounded" />
-          <div class="pl-4 flex flex-col justify-between">
+          <div class="pl-4 flex flex-col justify-between w-full">
             <div>
               <h2 class="text-xl font-bold">{{ merchant.name }}</h2>
-              <p class="text-gray-600">Merchant Manager: {{ merchant.managerName }}</p>
+              <p class="text-gray-600">
+                Admin:
+                <span>
+                  {{ merchant.users.map(user => user.name).join(', ') }}
+                </span>
+              </p>
             </div>
             <div class="flex mt-2 gap-2">
               <UButton color="primary" @click="goToOverview(merchant.id)">Overview</UButton>
@@ -42,19 +47,13 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const authStore = useAuthStore()
 const usersStore = useUsersStore()
+const merchantsStore = useMerchantsStore()
 
 const { currentUser } = storeToRefs(authStore)
 const { availableUsers } = storeToRefs(usersStore)
+const { availableMerchants } = storeToRefs(merchantsStore)
 
 const isLoading = ref(true)
-
-const getManagerName = (managerId) => {
-  const manager = availableUsers.value?.find(user => user.id === managerId)
-  return manager ? manager.name : 'Unknown'
-}
-
-const merchantsStore = useMerchantsStore()
-const { availableMerchants } = storeToRefs(merchantsStore)
 
 const isRegionalManager = computed(() => {
   return currentUser.value?.role === 'Regional Manager'
@@ -63,14 +62,14 @@ const isRegionalManager = computed(() => {
 const filteredMerchants = computed(() => {
   if (!isRegionalManager.value || !Array.isArray(availableUsers.value)) return []
   
-  const managedMerchantIds = currentUser.value.manages || []
+  const userMerchantIds = currentUser.value.merchantId || []
   
-  return availableMerchants.value.filter(merchant => 
-    managedMerchantIds.includes(merchant.managerId)
-  ).map(merchant => ({
-    ...merchant,
-    managerName: getManagerName(merchant.managerId)
-  }))
+  return availableMerchants.value
+    .filter(merchant => userMerchantIds.includes(merchant.id))
+    .map(merchant => ({
+      ...merchant,
+      users: availableUsers.value.filter(user => user.merchantId.includes(merchant.id))
+    }))
 })
 
 watch(currentUser, (newUser) => {
@@ -82,6 +81,7 @@ watch(currentUser, (newUser) => {
 }, { immediate: true })
 
 const goToOverview = (merchantId) => {
-  router.push({ path: '/', query: { selectedMerchant: merchantId } })
+  merchantsStore.setSelectedMerchant(merchantId)
+  router.push({ path: '/analytics/overview' })
 }
 </script>

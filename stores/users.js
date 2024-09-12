@@ -6,72 +6,69 @@ export const useUsersStore = defineStore('users', {
     availableUsers: [
       {
         id: 'RM001',
-        name: 'Jared Dunn',
-        mail: 'jared.dunn@hooli.com',
+        name: 'Gavin Belson',
+        mail: 'gavin.belson@hooli.com',
         role: 'Regional Manager',
-        manages: ['MM001', 'MM002'],
-        managedBy: null,
-        merchantId: ['561','483', '126', '135']
+        merchantId: ['561','483', '126', '315'],
+        avatar: "https://cdn.holistics.io/hooli/gavin_belson.png"
       },
       {
         id: 'RM002',
-        name: 'Peter Gregory',
-        mail: 'peter.gregory@hooli.com',
+        name: 'Richard Hendricks',
+        mail: 'richard.hendricks@hooli.com',
         role: 'Regional Manager',
-        manages: ['MM003'],
-        managedBy: null,
-        merchantId: ['255', '353', '661']
+        merchantId: ['255', '353', '661'],
+        avatar: "https://cdn.holistics.io/hooli/richard_hendricks.png"
       },
       {
         id: 'MM001',
         name: 'Erlich Bachman',
-        mail: 'erlich.backman@hooli.com',
+        mail: 'erlich.bachman@hooli.com',
         role: 'Merchant Manager',
-        manages: [],
-        managedBy: 'RM001',
-        merchantId: ['561']
+        merchantId: ['561'],
+        avatar: "https://cdn.holistics.io/hooli/erligh_bachman.png"
       },
       {
         id: 'MM002',
         name: 'Jian Yang',
         mail: 'jian.yang@hooli.com',
         role: 'Merchant Manager',
-        manages: [],
-        managedBy: 'RM001',
-        merchantId: ['483']
+        merchantId: ['483'],
+        avatar: "https://cdn.holistics.io/hooli/jian_yang.png"
       },
       {
         id: 'MM003',
-        name: 'Gilfoyle',
-        mail: 'gilfoyle@hooli.com',
+        name: 'Jared Dunn',
+        mail: 'jared.dunn@hooli.com',
         role: 'Merchant Manager',
-        manages: [],
-        managedBy: 'RM002',
-        merchantId: ['255']
+        merchantId: ['255'],
+        avatar: "https://cdn.holistics.io/hooli/jared_dunn.png"
+      },
+      {
+        id: 'MM004',
+        name: 'Monica',
+        mail: 'monica@hooli.com',
+        role: 'Merchant Manager',
+        merchantId: ['353'],
+        avatar: "https://cdn.holistics.io/hooli/monica_hall.png"
       }
     ],
-    userChangedFlag: false
   }),
   actions: {
     setCurrentUser(user) {
       const authStore = useAuthStore()
       authStore.currentUser = user
-      this.userChangedFlag = true
     },
 
     clearCurrentUser() {
       const authStore = useAuthStore()
       authStore.currentUser = null
-      this.userChangedFlag = true
     },
     getUserById(userId) {
       return this.availableUsers.find(u => u.id === userId) || null
     },
 
-    addUser(user) {
-      if (!this.availableUsers.some(u => u.id === user.id)) {
-        this.availableUsers.push(user)
-      }
+    addUser(user) {authStore
     },
 
     removeUser(userId) {
@@ -88,14 +85,6 @@ export const useUsersStore = defineStore('users', {
       }
     },
 
-    resetUserChangedFlag() {
-      this.userChangedFlag = false
-    },
-
-    setUserChangedFlag(flag) {
-      this.userChangedFlag = flag
-    },
-
     // New method to save current user to local storage
     saveCurrentUserToLocalStorage() {
       if (this.currentUser) {
@@ -108,7 +97,6 @@ export const useUsersStore = defineStore('users', {
       const storedUser = localStorage.getItem('currentUser')
       if (storedUser) {
         this.currentUser = JSON.parse(storedUser)
-        this.userChangedFlag = true
       }
     },
 
@@ -124,6 +112,5 @@ export const useUsersStore = defineStore('users', {
       return authStore.currentUser
     },
     getDefaultUser: (state) => state.availableUsers[0] || null,
-    hasUserChanged: (state) => state.userChangedFlag
   }
 })

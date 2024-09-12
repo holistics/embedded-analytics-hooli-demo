@@ -1,5 +1,6 @@
 <template>
   <div class="p-4">
+    <MerchantSelectMenu />
     <UHorizontalNavigation :links="navigationItems" class="text-5xl border-b" />
     <NuxtPage />
   </div>
@@ -8,6 +9,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
 
 const router = useRouter()
 const route = useRoute()

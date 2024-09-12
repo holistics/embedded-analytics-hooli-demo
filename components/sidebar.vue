@@ -7,45 +7,80 @@
       <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-8" />
     </div>
 
-    <!-- User selection area -->
-    <div class="p-4 border-t border-gray-800 flex">
-      <USelectMenu
-        v-model="selectedUser"
-        :options="userOptions"
-        placeholder="Select User"
-        class="w-full cursor-pointer"
-        :ui="selectUI"
+    <div 
+      class="p-4 relative" 
+      @mouseenter="isOpen = true"
+      @mouseleave="isOpen = false"
+    >
+      <div
+        class="flex items-center justify-between bg-gray-800 p-3 rounded-md cursor-pointer"
       >
-        <template #label>
-          <div class="flex items-center w-full">
-            <UAvatar
-              v-if="selectedUser"
-              :src="selectedUser.avatar"
-              :alt="selectedUser.name"
-              size="sm"
-              class="mr-2"
-            />
-            <div class="flex flex-col cursor-pointer">
-              <span>{{ selectedUser ? selectedUser.name : 'Select User' }}</span>
-              <p v-if="selectedUser" class="text-sm text-gray-500">{{ selectedUser.role }}</p>
+        <div class="flex items-center">
+          <UAvatar
+            :src="selectedUser.avatar"
+            :alt="selectedUser.name"
+            size="sm"
+            class="mr-3"
+          />
+          <div>
+            <div class="font-semibold">{{ selectedUser.name }}</div>
+            <div class="text-sm text-gray-400">{{ selectedUser.role }}</div>
+          </div>
+        </div>
+        <UIcon
+          name="i-heroicons-chevron-down-20-solid"
+          class="h-5 w-5 transition-transform"
+          :class="{ 'rotate-180': isOpen }"
+        />
+      </div>
+
+      <Transition
+        enter-active-class="transition duration-100 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0"
+      >
+        <div v-if="isOpen" class="absolute left-4 right-4 mt-2 bg-gray-800 rounded-md py-2 z-10 shadow-lg">
+          <div class="px-3 py-2 text-xs font-semibold text-gray-500">
+            Switch Account
+          </div>
+          <div
+            v-for="user in userOptions"
+            :key="user.id"
+            @click="selectUser(user)"
+            class="px-3 py-2 hover:bg-gray-700 cursor-pointer"
+            :class="{ 'bg-gray-700': user.id === selectedUser.id }"
+          >
+            <div class="flex items-center">
+              <UAvatar
+                :src="user.avatar"
+                :alt="user.name"
+                size="sm"
+                class="mr-3"
+              />
+              <div>
+                <div class="font-semibold">{{ user.name }}</div>
+                <div class="text-sm text-gray-400">{{ user.role }}</div>
+              </div>
             </div>
           </div>
-        </template>
-        <template #option="{ option }">
-          <div class="flex items-center w-full cursor-pointer">
-            <UAvatar
-              :src="option.avatar"
-              :alt="option.name"
-              size="sm"
-              class="mr-2"
-            />
-            <div class="flex flex-col w-full">
-              <span>{{ option.name }}</span>
-              <span class="text-sm text-gray-500">{{ option.role }}</span>
-            </div>
+          <div class="border-t border-gray-700 mt-2 pt-2 px-3">
+            <UButton
+              @click="logout"
+              color="red"
+              variant="ghost"
+              class="w-full text-white hover:bg-red-700 transition-colors duration-200"
+            >
+              <template #leading>
+                <UIcon name="i-heroicons-arrow-right-on-rectangle" />
+              </template>
+              Log out
+            </UButton>
           </div>
-        </template>
-      </USelectMenu>
+        </div>
+      </Transition>
     </div>
 
     <!-- Navigation -->
@@ -92,20 +127,6 @@
     </ul>
     </nav>
 
-    <!-- Logout button -->
-    <div class="p-4 border-t border-gray-800">
-      <UButton 
-        @click="logout" 
-        color="red" 
-        variant="ghost" 
-        class="w-full text-white hover:bg-red-700 transition-colors duration-200"
-      >
-        <template #leading>
-          <UIcon name="i-heroicons-arrow-right-on-rectangle" />
-        </template>
-        Logout
-      </UButton>
-    </div>
   </aside>
 </template>
 
@@ -123,15 +144,28 @@ const usersStore = useUsersStore()
 
 const { currentUser } = storeToRefs(authStore)
 
-const selectedUser = ref(currentUser.value || null)
+const isOpen = ref(false)
+const selectedUser = ref(usersStore.getUserById(authStore.currentUser?.id) || usersStore.getDefaultUser.id)
 
 const userOptions = computed(() => usersStore.availableUsers)
+
+function selectUser(user) {
+  selectedUser.value = user
+  authStore.login(user)
+  usersStore.setCurrentUser(user)
+  isOpen.value = false
+}
+
+function logout() {
+  authStore.logout()
+  router.push('/login')
+  isOpen.value = false
+}
 
 watch(selectedUser, (newUser) => {
   if (newUser && newUser.name !== currentUser.value?.name) {
     authStore.login(newUser)
     usersStore.setCurrentUser(newUser)
-    usersStore.setUserChangedFlag(false)
   }
 })
 
@@ -140,22 +174,6 @@ const isRegionalManager = computed(() => currentUser.value?.role === 'Regional M
 const filteredMenuItems = computed(() => 
   menuItems.filter(item => item.label !== 'Merchants' || isRegionalManager.value)
 )
-
-const logout = () => {
-  authStore.logout()
-  router.push('/login')
-}
-
-const selectUI = {
-  size: 'sm',
-  color: 'white',
-  variant: 'none',
-  button: {
-    base: 'cursor-pointer',
-  },
-  loadingIcon: 'i-heroicons-arrow-path-20-solid',
-  trailingIcon: 'i-heroicons-chevron-down-20-solid',
-}
 
 const menuItems = [
   { label: 'Home', to: '/', icon: 'i-heroicons-home' },
