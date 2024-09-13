@@ -1,6 +1,6 @@
 <template>
   <div v-if="isRegionalManager" class="flex items-center space-x-4 mb-8">
-    <h3 class="text-lg font-semibold whitespace-nowrap">Filter by Merchants</h3>
+    <p class="text-lg whitespace-nowrap">Filter by Merchants</p>
     <USelectMenu
       v-model="selectedMerchantLocal"
       :options="merchantOptions"

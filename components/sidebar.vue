@@ -191,17 +191,6 @@ const menuItems = [
 ]
 
 const isActive = computed(() => (path) => {
-  if (path === '/') {
-    // For the dashboard (index) page, check if there's a querySelectMerchant
-    return route.path === path && !route.query.querySelectMerchant
-  }
-  
-  if (path === '/merchants') {
-    // For the merchants page, also consider when we're on any page with querySelectMerchant
-    return route.path === path || route.query.querySelectMerchant
-  }
-  
-  // For other pages, use the original logic
   return route.path === path || route.path.startsWith(path + '/')
 })
 </script>

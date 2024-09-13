@@ -24,7 +24,9 @@
             </div>
             <div class="flex mt-2 gap-2">
               <UButton color="primary" @click="goToOverview(merchant.id)">Overview</UButton>
-              <UButton color="gray">See all orders</UButton>
+              <UTooltip text="This function is not available in our demo app" :popper="{ placement: 'right' }">
+                <UButton disabled color="gray">See all orders</UButton>
+              </UTooltip>
             </div>
           </div>
         </div>
