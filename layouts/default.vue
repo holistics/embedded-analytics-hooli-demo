@@ -8,6 +8,7 @@
             variant="outline" 
             label="free"
             color="white"
+            to="https://www.holistics.io/request-trial/"
           >Get started free</UButton>
         </div>
     </header>
