@@ -177,6 +177,7 @@ const filteredMenuItems = computed(() =>
 
 const menuItems = [
   { label: 'Home', to: '/', icon: 'i-heroicons-home' },
+  { label: 'About', to: '/about', icon: 'i-heroicons-information-circle' },
   { label: 'Orders', to: '/#', icon: 'i-heroicons-shopping-cart', disabled: true },
   { label: 'Products', to: '/#', icon: 'i-heroicons-tag', disabled: true },
   { label: 'Merchants', to: '/merchants', icon: 'i-heroicons-building-storefront' },

@@ -1,10 +1,11 @@
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Merchants</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Merchants</h1>
     <template v-if="isLoading">
       <p>Loading...</p>
     </template>
     <template v-else-if="isRegionalManager">
+      <p class="text-lg mb-6">Manage your merchant accounts and track their performance by clicking on “Overview”.</p>
       <UCard
         v-for="merchant in filteredMerchants"
         :key="merchant.id"

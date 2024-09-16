@@ -1,5 +1,7 @@
 <template>
   <div class="p-4">
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Overview</h1>
+    <p class="text-lg mb-6">Dive deeper into sales trends, top products and categories. Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
     <div v-if="isRegionalManager" class="flex items-center space-x-4 mb-8">
       <p class="text-lg whitespace-nowrap">Filter by Merchants</p>
       <USelectMenu
@@ -17,7 +19,6 @@
         </template>
       </USelectMenu>
     </div>
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Overview</h1>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -44,7 +45,7 @@ const selectedMerchantLocal = ref(selectedMerchant.value)
 
 const isRegionalManager = computed(() => {
   return currentUser.value?.role === 'Regional Manager'
-})
+}) 
 
 const merchantIdToSend = computed(() => {
   if (!isRegionalManager.value) {

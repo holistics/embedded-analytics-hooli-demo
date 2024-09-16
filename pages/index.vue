@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <h2 class="text-3xl mb-2">{{ welcomeMessage }}</h2>
-    <p class="mb-6">Welcome to Hooli. We make the world a better place.</p>
+    <p class="text-lg mb-6">Welcome to Hooli. We make the world a better place.</p>
     
     <h2 class="text-2xl font-semibold mb-4">Latest News</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[60px]">
@@ -22,7 +22,9 @@
     </div>
 
     
-    <h1 class="text-2xl font-bold mb-4">Business Insights</h1>
+    <h1 class="text-2xl font-bold mb-2">Business Insights</h1>
+    <p class="text-lg mb-6">Get a quick overview of your business performance. Track your sales, revenue, and customer metrics in real-time.</p>
+    
     <MerchantSelectMenu />
     
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
