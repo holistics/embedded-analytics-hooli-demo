@@ -19,8 +19,10 @@
       <sidebar />
 
       <!-- Scrollable Content -->
-      <main class="flex-1 p-4 overflow-y-auto">
-        <slot />
+      <main class="flex-1 overflow-y-auto">
+        <div class="p-4 container mx-auto">
+          <slot />
+        </div>
       </main>
     </div>
   </div>
