@@ -1,8 +1,8 @@
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold text-gray-800 mb-2">Reports</h1>
-    <p class="text-lg mb-6">Explore in-depth dashboards for products, sales, and marketing. Interact with the dashboard  by using provided filters, or cross-filter by clicking on any data point.</p>
     <MerchantSelectMenu />
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Reports</h1>
+    <p class="text-lg text-gray-500 mb-6">Explore in-depth dashboards for products, sales, and marketing. Interact with the dashboard  by using provided filters, or cross-filter by clicking on any data point.</p>
     <UHorizontalNavigation :links="navigationItems" class="text-5xl border-b" />
     <NuxtPage />
   </div>

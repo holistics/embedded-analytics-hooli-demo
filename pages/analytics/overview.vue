@@ -1,24 +1,8 @@
 <template>
   <div class="p-4">
+    <MerchantSelectMenu />
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Overview</h1>
-    <p class="text-lg mb-6">Dive deeper into sales trends, top products and categories. Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
-    <div v-if="isRegionalManager" class="flex items-center space-x-4 mb-8">
-      <p class="text-lg whitespace-nowrap">Filter by Merchants</p>
-      <USelectMenu
-        v-model="selectedMerchantLocal"
-        :options="merchantOptions"
-        option-attribute="name"
-        value-attribute="id"
-        placeholder="Select a merchant"
-        class="flex w-64"
-      >
-        <template #trigger="{ open }">
-          <UButton color="gray" :icon="open ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" block>
-            {{ selectedMerchantName || 'Select a merchant' }}
-          </UButton>
-        </template>
-      </USelectMenu>
-    </div>
+    <p class="text-lg text-gray-500 mb-6">Dive deeper into sales trends, top products and categories. Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -34,6 +18,7 @@ import { useAuthStore } from '~/stores/auth'
 import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
+import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)

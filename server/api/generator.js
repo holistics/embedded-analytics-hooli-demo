@@ -78,7 +78,16 @@ const endpoints = [
     getPermissions: (merchantId) => {
       return {
         "row_based": [
-         
+          {
+            "path": {
+              "dataset": "demo.marketing_campaign",
+              "model": "demo.marketing_kpi",
+              "field": "id"
+            },
+            "operator": "is",
+            "modifier": null,
+            "values": merchantId
+          }
         ]
       };
     },

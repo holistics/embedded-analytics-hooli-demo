@@ -1,9 +1,11 @@
 <template>
   <div class="p-4">
+    <MerchantSelectMenu />
+
     <h2 class="text-3xl mb-2">{{ welcomeMessage }}</h2>
-    <p class="text-lg mb-6">Welcome to Hooli. We make the world a better place.</p>
+    <p class="text-lg text-gray-500 mb-6">Welcome to Hooli. We make the world a better place.</p>
     
-    <h2 class="text-2xl font-semibold mb-4">Latest News</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Latest News</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[60px]">
       <UCard v-for="item in news" :key="item.id" class="flex flex-col"
           :ui="{
@@ -22,10 +24,9 @@
     </div>
 
     
-    <h1 class="text-2xl font-bold mb-2">Business Insights</h1>
-    <p class="text-lg mb-6">Get a quick overview of your business performance. Track your sales, revenue, and customer metrics in real-time.</p>
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Insights</h1>
+    <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance. Track your sales, revenue, and customer metrics in real-time.</p>
     
-    <MerchantSelectMenu />
     
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
