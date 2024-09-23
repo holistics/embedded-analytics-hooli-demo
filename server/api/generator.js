@@ -82,7 +82,7 @@ const endpoints = [
             "path": {
               "dataset": "demo.marketing_campaign",
               "model": "demo.marketing_kpi",
-              "field": "id"
+              "field": "merchant_id"
             },
             "operator": "is",
             "modifier": null,
