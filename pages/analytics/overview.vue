@@ -2,7 +2,15 @@
   <div class="p-4">
     <MerchantSelectMenu />
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Overview</h1>
-    <p class="text-lg text-gray-500 mb-6">Dive deeper into sales trends, top products and categories. Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
+    <p class="text-lg text-gray-500 mb-6">Dive deeper into sales trends, top products and categories.</p>
+    <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
+      <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
+      <ul class="ml-10 list-disc">
+        <li>Using provided filters to filter out data.</li>
+        <li>Cross-filter by clicking on any data point.</li>
+        <li>Drill-through by right-click data points.</li>
+      </ul>
+    </blockquote>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>

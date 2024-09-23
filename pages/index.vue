@@ -3,7 +3,7 @@
     <MerchantSelectMenu />
 
     <h2 class="text-3xl mb-2">{{ welcomeMessage }}</h2>
-    <p class="text-lg text-gray-500 mb-6">Welcome to Hooli. We make the world a better place.</p>
+    <p class="text-lg text-gray-500 mb-6">{{ roleMessage }}</p>
     
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Latest News</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[60px]">
@@ -25,7 +25,10 @@
 
     
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Insights</h1>
-    <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance. Track your sales, revenue, and customer metrics in real-time.</p>
+    <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance.</p>
+    <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
+      <p class="mb-0">👉 Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
+    </blockquote>
     
     
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
@@ -48,7 +51,7 @@ import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
 const merchantsStore = useMerchantsStore()
-const { selectedMerchant } = storeToRefs(merchantsStore)
+const { availableMerchants, selectedMerchant } = storeToRefs(merchantsStore)
 const iframeUrl = ref('')
 const router = useRouter()
 
@@ -84,6 +87,21 @@ const welcomeMessage = computed(() => {
   
   let greeting = 'Hello'
   return `👋 ${greeting}, ${currentUser.value.name}!`
+})
+
+const roleMessage = computed(() => {
+  if (!currentUser.value) return 'We make the world a better place.'
+
+  let roleSpecificMessage = ''
+  if (currentUser.value.role === 'Regional Manager') {
+    const managedMerchants = currentUser.value.merchantId.length
+    roleSpecificMessage = `You're a Regional Manager, responsible for ${managedMerchants} merchants. Use the filter above to drill down and view each merchant’s performance individually.`
+  } else if (currentUser.value.role === 'Merchant Manager') {
+    const merchantName = availableMerchants.value?.find(m => m.id === currentUser.value.merchantId[0])?.name || 'Unknown Merchant'
+    roleSpecificMessage = `You're a Merchant Manager, your merchant is ${merchantName}. You can only see data and insights related to this merchant.`
+  }
+
+  return roleSpecificMessage
 })
 
 const merchantIdToSend = computed(() => {

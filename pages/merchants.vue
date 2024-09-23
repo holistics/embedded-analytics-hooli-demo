@@ -5,7 +5,10 @@
       <p>Loading...</p>
     </template>
     <template v-else-if="isRegionalManager">
-      <p class="text-lg mb-6">Manage your merchant accounts and track their performance by clicking on “Overview”.</p>
+      <p class="text-lg mb-6">This is a list of all merchants that you manage.</p>
+      <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
+        <p class="mb-0">👉 Manage your merchant accounts and track their performance by clicking on “Overview”.</p>
+      </blockquote>
       <UCard
         v-for="merchant in filteredMerchants"
         :key="merchant.id"

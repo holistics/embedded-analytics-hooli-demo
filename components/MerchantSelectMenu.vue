@@ -1,18 +1,23 @@
 <template>
-  <div v-if="isRegionalManager" class="flex items-center space-x-4 mb-8 w-full border-b-2 border-gray-100">
+  <div v-if="isRegionalManager" class="flex flex-col space-x-4 mb-8 w-full border-b-2 border-gray-100">
     <USelectMenu
       v-model="selectedMerchantLocal"
       :options="merchantOptions"
       option-attribute="name"
       value-attribute="id"
       placeholder="Select a merchant"
-      class="flex w-64 pb-5"
+      class="flex w-80 pb-5"
     >
-      <UButton size="lg" color="gray" class="w-full justify-between rounded-xl" block>
-        {{ selectedMerchantName || 'Select a merchant' }}
-
-        <UIcon name="i-heroicons-chevron-right-20-solid" class="w-5 h-5 transition-transform text-gray-400 dark:text-gray-500" :class="[open && 'transform rotate-90']" />
-      </UButton>
+      <template #default="{ open }">
+        <UButton size="lg" color="gray" class="w-full justify-between rounded-xl" block>
+          Merchant: {{ selectedMerchantName }}
+          <UIcon
+            name="i-heroicons-chevron-right-20-solid"
+            class="w-5 h-5 transition-transform text-gray-400 dark:text-gray-500"
+            :class="{ 'transform rotate-90': open }"
+          />
+        </UButton>
+      </template>
     </USelectMenu>
   </div>
 </template>
