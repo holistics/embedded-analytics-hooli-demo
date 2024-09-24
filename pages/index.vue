@@ -27,10 +27,23 @@
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Insights</h1>
     <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance.</p>
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
-      <p class="mb-0">👉 Interact with the dashboard by using provided filters, or cross-filter by clicking on any data point.</p>
+      <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
+      <ul class="ml-10 list-disc">
+        <li>Using provided filters to filter out data.</li>
+        <li>Cross-filter, Date-drill, or Drill-through by right-clicking on any data point.</li>
+      </ul>
     </blockquote>
-    
-    
+    <NuxtLink :to="`https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_home.page.aml`" target="_blank">
+      <UButton
+        icon="i-heroicons-arrow-top-right-on-square"
+        size="sm" 
+        color="gray"
+        variant="solid"
+        label="Go to original dashboard"
+        :trailing="false"
+        class="mb-3"
+      />
+    </NuxtLink>
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>

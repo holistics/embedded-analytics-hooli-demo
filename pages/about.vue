@@ -29,7 +29,7 @@
                 />
               </div>
               <span class="text-sm">{{ child.label }}</span>
-              <NuxtLink :to="child.to">
+              <NuxtLink :to="child.to" target="_blank">
                 <UButton
                   icon="i-heroicons-arrow-top-right-on-square"
                   size="xs"
@@ -71,8 +71,8 @@
 
 <script setup>
 const resourceLinks = [
-  { label: 'Access the Embedded Dashboards', to: '#', icon: 'i-heroicons-presentation-chart-bar' },
-  { label: 'Access the Git Repo of this Demo App', to: '#', icon: 'i-heroicons-code-bracket' },
-  { label: 'Contact us to evaluate Embedded Analytics', to: '#', icon: 'i-heroicons-globe-alt' },
+  { label: 'Access the Embedded Dashboards', to: 'https://playground.holistics.io/demo/product-hunt ', icon: 'i-heroicons-presentation-chart-bar' },
+  { label: 'Access the Git Repo of this Demo App', to: 'https://github.com/holistics/embedded-analytics-demo-hooli', icon: 'i-heroicons-code-bracket' },
+  { label: 'Contact us to evaluate Embedded Analytics', to: 'https://www.holistics.io/request-trial/  ', icon: 'i-heroicons-globe-alt' },
 ]
 </script>

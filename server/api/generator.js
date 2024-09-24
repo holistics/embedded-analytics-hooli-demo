@@ -8,7 +8,8 @@ const endpoints = [
     settings: {
       "enable_export_data": false,
       "default_timezone": null,
-      "allow_to_change_timezone": false
+      "allow_to_change_timezone": false,
+      "hide_header_panel": true
     },
     getPermissions: (merchantId) => {
       return {
@@ -35,7 +36,8 @@ const endpoints = [
     settings: {
       "enable_export_data": false,
       "default_timezone": null,
-      "allow_to_change_timezone": false
+      "allow_to_change_timezone": false,
+      "hide_header_panel": true
     },
     getPermissions: (merchantId) => {
       return {
@@ -65,6 +67,10 @@ const endpoints = [
         }
       }
     },
+    drillthroughs: {
+      "88569": { 
+      },
+    },
   },
   {
     name: 'marketing',
@@ -73,7 +79,8 @@ const endpoints = [
     settings: {
       "enable_export_data": false,
       "default_timezone": null,
-      "allow_to_change_timezone": false
+      "allow_to_change_timezone": false,
+      "hide_header_panel": true
     },
     getPermissions: (merchantId) => {
       return {
@@ -111,7 +118,8 @@ const endpoints = [
     settings: {
       "enable_export_data": false,
       "default_timezone": null,
-      "allow_to_change_timezone": false
+      "allow_to_change_timezone": false,
+      "hide_header_panel": true
     },
     getPermissions: (merchantId) => {
       return {
@@ -148,7 +156,11 @@ const endpoints = [
           "modifier": null
         }
       }
-    }
+    },
+    drillthroughs: {
+      "88569": { 
+      },
+    },
   },
   {
     name: 'product',
@@ -157,7 +169,8 @@ const endpoints = [
     settings: {
       "enable_export_data": false,
       "default_timezone": null,
-      "allow_to_change_timezone": false
+      "allow_to_change_timezone": false,
+      "hide_header_panel": true
     },
     getPermissions: (merchantId) => {
       return {
@@ -219,6 +232,7 @@ export function generateToken(name, merchantId) {
     settings: endpoint.settings,
     permissions: endpoint.getPermissions(merchantId),
     filters: endpoint.filters,
+    drillthroughs: endpoint.drillthroughs,
     exp: expired_time
   };
   

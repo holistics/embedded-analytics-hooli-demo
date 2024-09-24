@@ -7,8 +7,7 @@
       <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
       <ul class="ml-10 list-disc">
         <li>Using provided filters to filter out data.</li>
-        <li>Cross-filter by clicking on any data point.</li>
-        <li>Drill-through by right-click data points.</li>
+        <li>Cross-filter, Date-drill, or Drill-through by right-clicking on any data point.</li>
       </ul>
     </blockquote>
     <UHorizontalNavigation :links="navigationItems" class="text-5xl border-b" />
