@@ -27,7 +27,11 @@ const endpoints = [
         ]
       };
     },
-    filters: {}
+    filters: {},
+    drillthroughs: {
+      "88569": { 
+      },
+    },
   },
   {
     name: 'overview',

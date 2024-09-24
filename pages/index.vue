@@ -27,9 +27,8 @@
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Insights</h1>
     <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance.</p>
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
-      <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
+      <p class="mb-0">👉 Interact with the dashboard:</p>
       <ul class="ml-10 list-disc">
-        <li>Using provided filters to filter out data.</li>
         <li>Cross-filter, Date-drill, or Drill-through by right-clicking on any data point.</li>
       </ul>
     </blockquote>
