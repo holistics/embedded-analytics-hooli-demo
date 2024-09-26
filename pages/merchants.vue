@@ -15,7 +15,7 @@
         class="mb-4"
       >
         <div class="flex">
-          <img :src="merchant.img" :alt="merchant.name" class="w-[150px] h-[150px] object-cover rounded" />
+          <img src="https://cdn.holistics.io/hooli/merchant-avatar.svg" :alt="merchant.name" class="w-[150px] h-[150px] object-cover rounded" />
           <div class="pl-4 flex flex-col justify-between w-full">
             <div>
               <h2 class="text-xl font-bold">{{ merchant.name }}</h2>

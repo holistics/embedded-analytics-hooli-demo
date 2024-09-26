@@ -71,7 +71,7 @@
 
 <script setup>
 const resourceLinks = [
-  { label: 'Access the Embedded Dashboards', to: 'https://playground.holistics.io/demo/product-hunt ', icon: 'i-heroicons-presentation-chart-bar' },
+  { label: 'Access the Embedded Dashboards', to: 'https://playground.holistics.io/play', icon: 'i-heroicons-presentation-chart-bar' },
   { label: 'Access the Git Repo of this Demo App', to: 'https://github.com/holistics/embedded-analytics-demo-hooli', icon: 'i-heroicons-code-bracket' },
   { label: 'Contact us to evaluate Embedded Analytics', to: 'https://www.holistics.io/request-trial/  ', icon: 'i-heroicons-globe-alt' },
 ]

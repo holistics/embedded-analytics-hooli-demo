@@ -11,13 +11,16 @@
           :ui="{
             header: {
               padding: 'p-0 sm:px-0',
-            }
+            },
+            body: {
+              padding: 'p-3 sm:p-4',
+            },
           }">
         <template #header>
           <img :src="item.image" :alt="item.title" class="w-full h-48 object-cover rounded-t-lg" />
         </template>
         <div class="flex-grow">
-          <p class="text-lg mb-2">{{ item.title }}</p>
+          <p class="text-md mb-2">{{ item.title }}</p>
           <p class="text-sm text-gray-600">{{ item.description }}</p>
         </div>
       </UCard>
@@ -32,17 +35,7 @@
         <li>Cross-filter, Date-drill, or Drill-through by right-clicking on any data point.</li>
       </ul>
     </blockquote>
-    <NuxtLink :to="`https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_home.page.aml`" target="_blank">
-      <UButton
-        icon="i-heroicons-arrow-top-right-on-square"
-        size="sm" 
-        color="gray"
-        variant="solid"
-        label="Go to original dashboard"
-        :trailing="false"
-        class="mb-3"
-      />
-    </NuxtLink>
+    <DashboardOriginal />
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -59,6 +52,7 @@ import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
 import { useFetch, useRouter } from '#app'
 import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
+import DashboardOriginal from '~/components/DashboardOriginal.vue'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)

@@ -1,16 +1,6 @@
 <template>
   <div class="py-4">
-    <NuxtLink :to="`https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_marketing.page.aml`" target="_blank">
-      <UButton
-        icon="i-heroicons-arrow-top-right-on-square"
-        size="sm" 
-        color="gray"
-        variant="solid"
-        label="Go to original dashboard"
-        :trailing="false"
-        class="mb-3"
-      />
-    </NuxtLink>
+    <DashboardOriginal />
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -26,6 +16,7 @@ import { useAuthStore } from '~/stores/auth'
 import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
+import DashboardOriginal from '~/components/DashboardOriginal.vue'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)

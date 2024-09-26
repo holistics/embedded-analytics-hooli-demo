@@ -154,6 +154,7 @@ function selectUser(user) {
   authStore.login(user)
   usersStore.setCurrentUser(user)
   isOpen.value = false
+  router.push('/')
 }
 
 function logout() {

@@ -1,26 +1,16 @@
 <template>
-  <div class="p-4">
+  <div class="p-3">
     <MerchantSelectMenu />
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Overview</h1>
     <p class="text-lg text-gray-500 mb-6">Dive deeper into sales trends, top products and categories.</p>
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
       <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
       <ul class="ml-10 list-disc">
-        <li>Using provided filters to filter out data.</li>
-        <li>Cross-filter, Date-drill, or Drill-through by right-clicking on any data point.</li>
+        <li>Cross-filter by clicking on any data point.</li>
+        <li>Date-drill or Drill-through by right-click on any data points.</li>
       </ul>
     </blockquote>
-    <NuxtLink :to="`https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_overview.page.aml`" target="_blank">
-      <UButton
-        icon="i-heroicons-arrow-top-right-on-square"
-        size="sm" 
-        color="gray"
-        variant="solid"
-        label="Go to original dashboard"
-        :trailing="false"
-        class="mb-3"
-      />
-    </NuxtLink>
+    <DashboardOriginal />
     <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
       <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -37,6 +27,7 @@ import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
+import DashboardOriginal from '~/components/DashboardOriginal.vue'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
