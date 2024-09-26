@@ -10,13 +10,10 @@
         <li>Date-drill or Drill-through by right-click on any data points.</li>
       </ul>
     </blockquote>
+
     <DashboardOriginal />
-    <div v-if="iframeUrl" class="w-full h-[calc(100vh-150px)]">
-      <iframe :src="iframeUrl" class="w-full h-full border rounded" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div v-else class="text-center py-8">
-      <p>Loading iframe...</p>
-    </div>
+    
+    <IframeLoader :iframe-url="iframeUrl"/>
   </div>
 </template>
 
@@ -28,6 +25,7 @@ import { storeToRefs } from 'pinia'
 import { useFetch } from '#app'
 import MerchantSelectMenu from '~/components/MerchantSelectMenu.vue'
 import DashboardOriginal from '~/components/DashboardOriginal.vue'
+import IframeLoader from '~/components/IframeLoader.vue'
 
 const authStore = useAuthStore()
 const { currentUser } = storeToRefs(authStore)
