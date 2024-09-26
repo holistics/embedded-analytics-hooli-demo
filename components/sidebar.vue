@@ -13,7 +13,7 @@
       @mouseleave="isOpen = false"
     >
       <div
-        class="flex items-center justify-between bg-gray-800 p-3 rounded-md cursor-pointer"
+        class="flex items-center justify-between bg-gray-800 px-3 py-2 rounded-md cursor-pointer"
       >
         <div class="flex items-center">
           <UAvatar
@@ -43,29 +43,61 @@
         leave-to-class="transform scale-95 opacity-0"
       >
         <div v-if="isOpen" class="absolute left-4 right-4 mt-2 bg-gray-800 rounded-md py-2 z-10 shadow-lg">
-          <div class="px-3 py-2 text-xs font-semibold text-gray-500">
+          <div class="px-3 py-2 text-sm font-bold uppercase text-gray-500 ">
             Switch Account
           </div>
+          
+          <div v-for="(managers, role) in { 'Regional Manager': regionalManagers, 'Merchant Manager': merchantManagers }" :key="role">
+        <div v-if="managers.length > 0">
+          <div class="py-4 px-3 text-sm font-semibold text-gray-500 mt-2 flex items-center border-t border-gray-700">
+            {{ role }}
+            <UTooltip
+              :popper="{ placement: 'right' }"  
+              :ui="{
+                base: 'h-full text-wrap',
+              }"
+            >
+              <UIcon name="i-heroicons-information-circle" class="ml-1 h-5 w-5 cursor-pointer" />
+              <template #text>
+                <div v-if="role === 'Regional Manager'">
+                  <b>Regional Manager</b> manages multiple merchants and can filter data by merchant to view their performance.
+                </div>
+                <div v-else>
+                  <b>Merchant Manager</b> manages one merchant and only has access to data and insights related to this merchant. 
+                </div>
+              </template>
+            </UTooltip>
+          </div>
           <div
-            v-for="user in userOptions"
+            v-for="user in managers"
             :key="user.id"
             @click="selectUser(user)"
-            class="px-3 py-2 hover:bg-gray-700 cursor-pointer"
+            class="px-3 py-2 hover:bg-gray-700 cursor-pointer flex items-center"
             :class="{ 'bg-gray-700': user.id === selectedUser.id }"
           >
-            <div class="flex items-center">
-              <UAvatar
-                :src="user.avatar"
-                :alt="user.name"
-                size="sm"
-                class="mr-3"
-              />
-              <div>
+            <UTooltip 
+              :popper="{ placement: 'right' }"
+              :ui="{
+                base: 'h-full text-wrap',
+              }"
+            >
+              <div class="flex items-center">
+                <UAvatar
+                  :src="user.avatar"
+                  :alt="user.name"
+                  size="sm"
+                  class="mr-3"
+                />
                 <div class="font-semibold">{{ user.name }}</div>
-                <div class="text-sm text-gray-400">{{ user.role }}</div>
               </div>
-            </div>
+              <template #text>
+                <div v-html="getUserTooltip(user)"></div>
+              </template>
+            </UTooltip>
           </div>
+        </div>
+      </div>
+
           <div class="border-t border-gray-700 mt-2 pt-2 px-3">
             <UButton
               @click="logout"
@@ -135,7 +167,11 @@ import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '~/stores/auth'
 import { useUsersStore } from '~/stores/users'
+import { useMerchantsStore } from '~/stores/merchants'
 import { storeToRefs } from 'pinia'
+
+const merchantsStore = useMerchantsStore()
+const { availableMerchants } = storeToRefs(merchantsStore)
 
 const route = useRoute()
 const router = useRouter()
@@ -171,6 +207,35 @@ watch(selectedUser, (newUser) => {
 })
 
 const isRegionalManager = computed(() => currentUser.value?.role === 'Regional Manager')
+
+const regionalManagers = computed(() => 
+  userOptions.value.filter(user => user.role === 'Regional Manager')
+)
+
+const merchantManagers = computed(() => 
+  userOptions.value.filter(user => user.role === 'Merchant Manager')
+)
+
+function getUserTooltip(user) {
+  const merchantNames = user.merchantId
+    .map(id => availableMerchants.value.find(m => m.id === id)?.name)
+    .filter(name => name)
+
+  const merchantCount = merchantNames.length
+  const boldUserName = `<strong>${user.name}</strong>`
+
+  if (merchantCount === 0) {
+    return `${boldUserName} does not manage any merchants.`
+  } else if (merchantCount === 1) {
+    return `${boldUserName} manages <strong>${merchantNames[0]}</strong>.`
+  } else if (merchantCount === 2) {
+    return `${boldUserName} manages <strong>${merchantNames[0]}</strong> and <strong>${merchantNames[1]}</strong>.`
+  } else {
+    const lastMerchant = merchantNames.pop()
+    const boldMerchants = merchantNames.map(name => `<strong>${name}</strong>`).join(', ')
+    return `${boldUserName} manages ${boldMerchants}, and <strong>${lastMerchant}</strong>.`
+  }
+}
 
 const filteredMenuItems = computed(() => 
   menuItems.filter(item => item.label !== 'Merchants' || isRegionalManager.value)
