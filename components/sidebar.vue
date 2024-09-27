@@ -48,55 +48,55 @@
           </div>
           
           <div v-for="(managers, role) in { 'Regional Manager': regionalManagers, 'Merchant Manager': merchantManagers }" :key="role">
-        <div v-if="managers.length > 0">
-          <div class="py-4 px-3 text-sm font-semibold text-gray-500 mt-2 flex items-center border-t border-gray-700">
-            {{ role }}
-            <UTooltip
-              :popper="{ placement: 'right' }"  
-              :ui="{
-                base: 'h-full text-wrap',
-              }"
+            <div v-if="managers.length > 0">
+              <div class="py-4 px-3 text-sm font-semibold text-gray-500 mt-2 flex items-center border-t border-gray-700">
+              {{ role }}
+              <UTooltip
+                :popper="{ placement: 'right' }"  
+                :ui="{
+                  base: 'h-full text-wrap',
+                }"
+              >
+                <UIcon name="i-heroicons-information-circle" class="ml-1 h-5 w-5 cursor-pointer" />
+                <template #text>
+                  <div v-if="role === 'Regional Manager'">
+                    <b>Regional Manager</b> manages multiple merchants and can filter data by merchant to view their performance.
+                  </div>
+                  <div v-else>
+                    <b>Merchant Manager</b> manages one merchant and only has access to data and insights related to this merchant. 
+                  </div>
+                </template>
+              </UTooltip>
+            </div>
+            <div
+              v-for="user in managers"
+              :key="user.id"
+              @click="selectUser(user)"
+              class="px-3 py-2 hover:bg-gray-700 cursor-pointer flex items-center"
+              :class="{ 'bg-gray-700': user.id === selectedUser.id }"
             >
-              <UIcon name="i-heroicons-information-circle" class="ml-1 h-5 w-5 cursor-pointer" />
-              <template #text>
-                <div v-if="role === 'Regional Manager'">
-                  <b>Regional Manager</b> manages multiple merchants and can filter data by merchant to view their performance.
+              <UTooltip 
+                :popper="{ placement: 'right' }"
+                :ui="{
+                  base: 'h-full text-wrap',
+                }"
+              >
+                <div class="flex items-center">
+                  <UAvatar
+                    :src="user.avatar"
+                    :alt="user.name"
+                    size="sm"
+                    class="mr-3"
+                  />
+                  <div class="font-semibold">{{ user.name }}</div>
                 </div>
-                <div v-else>
-                  <b>Merchant Manager</b> manages one merchant and only has access to data and insights related to this merchant. 
-                </div>
-              </template>
-            </UTooltip>
-          </div>
-          <div
-            v-for="user in managers"
-            :key="user.id"
-            @click="selectUser(user)"
-            class="px-3 py-2 hover:bg-gray-700 cursor-pointer flex items-center"
-            :class="{ 'bg-gray-700': user.id === selectedUser.id }"
-          >
-            <UTooltip 
-              :popper="{ placement: 'right' }"
-              :ui="{
-                base: 'h-full text-wrap',
-              }"
-            >
-              <div class="flex items-center">
-                <UAvatar
-                  :src="user.avatar"
-                  :alt="user.name"
-                  size="sm"
-                  class="mr-3"
-                />
-                <div class="font-semibold">{{ user.name }}</div>
-              </div>
-              <template #text>
-                <div v-html="getUserTooltip(user)"></div>
-              </template>
-            </UTooltip>
+                <template #text>
+                  <div v-html="getUserTooltip(user)"></div>
+                </template>
+              </UTooltip>
+            </div>
           </div>
         </div>
-      </div>
 
           <div class="border-t border-gray-700 mt-2 pt-2 px-3">
             <UButton
@@ -228,12 +228,17 @@ function getUserTooltip(user) {
     return `${boldUserName} does not manage any merchants.`
   } else if (merchantCount === 1) {
     return `${boldUserName} manages <strong>${merchantNames[0]}</strong>.`
-  } else if (merchantCount === 2) {
-    return `${boldUserName} manages <strong>${merchantNames[0]}</strong> and <strong>${merchantNames[1]}</strong>.`
   } else {
-    const lastMerchant = merchantNames.pop()
-    const boldMerchants = merchantNames.map(name => `<strong>${name}</strong>`).join(', ')
-    return `${boldUserName} manages ${boldMerchants}, and <strong>${lastMerchant}</strong>.`
+    const merchantList = merchantNames.map((name, index) => 
+      `<li>${index + 1}. <strong>${name}</strong></li>`
+    ).join('')
+    
+    return `
+      ${boldUserName} manages ${merchantCount} merchants:
+      <ul style="list-style-type: none; padding-left: 0; margin-top: 5px;">
+        ${merchantList}
+      </ul>
+    `
   }
 }
 

@@ -22,14 +22,14 @@
             ]"
           >
             <div class="flex items-center gap-3">
-               <div class="inline-flex items-center justify-center w-6 h-6 bg-black rounded-full p-1">
-                <UIcon
-                  :name="child.icon"
-                  class="w-full h-full text-white"
-                />
-              </div>
-              <span class="text-sm">{{ child.label }}</span>
-              <NuxtLink :to="child.to" target="_blank">
+                <div class="inline-flex items-center justify-center w-6 h-6 bg-black rounded-full p-1">
+                  <UIcon
+                    :name="child.icon"
+                    class="w-full h-full text-white"
+                  />
+                </div>
+              <NuxtLink :to="child.to" target="_blank" class="flex items-center gap-1">
+                <span class="text-sm">{{ child.label }}</span>
                 <UButton
                   icon="i-heroicons-arrow-top-right-on-square"
                   size="xs"
