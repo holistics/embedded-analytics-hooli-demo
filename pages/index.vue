@@ -1,5 +1,6 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 relative">
+    <img src="https://cdn.holistics.io/hooli/hooli-blob.svg" class="absolute top-[-80px] right-[-20px] -z-10" />
     <MerchantSelectMenu />
 
     <h2 class="text-xl font-semibold mb-2">{{ welcomeMessage }}</h2>

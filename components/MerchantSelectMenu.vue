@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isRegionalManager" class="flex flex-col space-x-4 mb-8 w-full border-b-2 border-gray-100">
+  <div v-if="isRegionalManager" class="flex flex-col space-x-4 mb-8 w-full">
     <USelectMenu
       v-model="selectedMerchantLocal"
       :options="merchantOptions"

@@ -20,8 +20,7 @@
 
       <!-- Scrollable Content -->
       <main class="flex-1 overflow-y-auto">
-        <div class="p-4 container mx-auto relative">
-          <img src="https://cdn.holistics.io/hooli/hooli-blob.svg" class="absolute top-[-80px] right-[-20px]" />
+        <div class="p-4 container mx-auto">
           <slot />
         </div>
       </main>
