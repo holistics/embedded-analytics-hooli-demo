@@ -1,6 +1,6 @@
 domains:
-- domain: hooli.holistics.io
-  type: PRIMARY
+- domain: hooli.getholistics.com
+  type: ALIAS
 ingress:
   rules:
   - component:
