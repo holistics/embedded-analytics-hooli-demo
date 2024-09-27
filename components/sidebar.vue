@@ -49,7 +49,7 @@
           
           <div v-for="(managers, role) in { 'Regional Manager': regionalManagers, 'Merchant Manager': merchantManagers }" :key="role">
             <div v-if="managers.length > 0">
-              <div class="py-4 px-3 text-sm font-semibold text-gray-500 mt-2 flex items-center border-t border-gray-700">
+              <div class="p-3 text-md text-white mt-2 flex items-center border-t border-gray-700">
               {{ role }}
               <UTooltip
                 :popper="{ placement: 'right' }"  

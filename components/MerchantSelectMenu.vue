@@ -6,15 +6,15 @@
       option-attribute="name"
       value-attribute="id"
       placeholder="Select a merchant"
-      class="flex w-80 pb-5"
+      class="flex w-[350px] pb-5"
     >
       <template #default="{ open }">
         <UButton size="lg" color="gray" class="w-full justify-between rounded-xl" block>
           Merchant: {{ selectedMerchantName }}
           <UIcon
-            name="i-heroicons-chevron-right-20-solid"
+            name="i-heroicons-chevron-down-20-solid"
             class="w-5 h-5 transition-transform text-gray-400 dark:text-gray-500"
-            :class="{ 'transform rotate-90': open }"
+            :class="{ 'transform rotate-180': open }"
           />
         </UButton>
       </template>

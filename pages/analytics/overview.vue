@@ -2,7 +2,7 @@
   <div class="p-3">
     <MerchantSelectMenu />
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Overview</h1>
-    <p class="text-lg text-gray-500 mb-6">Dive deeper into sales trends, top products and categories.</p>
+    <p class="text-lg text-gray-500 mb-4">Dive deeper into sales trends, top products and categories.</p>
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
       <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
       <ul class="ml-10 list-disc">

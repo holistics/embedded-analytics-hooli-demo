@@ -2,11 +2,11 @@
   <div class="p-4">
     <MerchantSelectMenu />
 
-    <h2 class="text-3xl mb-2">{{ welcomeMessage }}</h2>
+    <h2 class="text-xl font-semibold mb-2">{{ welcomeMessage }}</h2>
     <p class="text-lg text-gray-500 mb-6">{{ roleMessage }}</p>
     
     <h2 class="text-2xl font-bold text-gray-800 mb-4">Latest News</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[60px]">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-[32px]">
       <UCard v-for="item in news" :key="item.id" class="flex flex-col"
           :ui="{
             header: {
@@ -21,14 +21,14 @@
         </template>
         <div class="flex-grow">
           <p class="text-md mb-2">{{ item.title }}</p>
-          <p class="text-sm text-gray-600">{{ item.description }}</p>
+          <p class="text-sm text-gray-600 truncate">{{ item.description }}</p>
         </div>
       </UCard>
     </div>
 
     
     <h1 class="text-2xl font-bold text-gray-800 mb-2">Business Insights</h1>
-    <p class="text-lg text-gray-500 mb-6">Get a quick overview of your business performance.</p>
+    <p class="text-lg text-gray-500 mb-4">Get a quick overview of your business performance.</p>
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
       <p class="mb-0">👉 Interact with the dashboard:</p>
       <ul class="ml-10 list-disc">
