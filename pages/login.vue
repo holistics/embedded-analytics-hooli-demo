@@ -47,7 +47,7 @@
           leave-from-class="transform scale-100 opacity-100"
           leave-to-class="transform scale-95 opacity-0"
         >
-          <div v-if="isOpen" class="absolute left-0 right-0 mt-2 bg-white rounded-md py-2 z-10 shadow-lg">
+          <div v-if="isOpen" class="absolute left-0 right-0 mt-2 bg-white rounded-md py-2 z-10 shadow-lg max-h-[calc(50vh-120px)] overflow-y-auto">
             <div class="px-3 py-2 text-sm font-bold uppercase text-gray-500">
               Switch Account
             </div>

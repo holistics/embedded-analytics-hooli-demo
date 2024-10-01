@@ -4,7 +4,9 @@
 
     <!-- Logo area -->
     <div class="p-4">
-      <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-8" />
+      <NuxtLink to="/">
+        <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-8" />
+      </NuxtLink>
     </div>
 
     <div 
