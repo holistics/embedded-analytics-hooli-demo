@@ -6,6 +6,7 @@
     <blockquote class="border-l-8 border-orange-500 bg-orange-100 py-4 pl-6 mb-6">
       <p class="mb-0">👉 Interact with the dashboard in several ways:</p>
       <ul class="ml-10 list-disc">
+        <li>Using provided filters to filter out data.</li>
         <li>Cross-filter by clicking on any data point.</li>
         <li>Date-drill or Drill-through by right-click on any data points.</li>
       </ul>
