@@ -1,6 +1,9 @@
 <template>
   <div class="py-4">
-    <DashboardOriginal />
+    <DashboardOriginal 
+      dashboardLink="https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_sales.page.aml"
+      dashboardName="Hooli Sales"  
+    />
  
     <IframeLoader :iframe-url="iframeUrl"/>
   </div>

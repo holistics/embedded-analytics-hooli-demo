@@ -3,12 +3,12 @@ import { defineStore } from 'pinia'
 export const useMerchantsStore = defineStore('merchants', {
   state: () => ({
     availableMerchants: [
-      { id: '561', name: "Dibbert, Abernathy and Mertz" },
+      { id: '561', name: "Dibbert, Abernathy & Mertz" },
       { id: '483', name: "Nader Inc" },
-      { id: '255', name: "Gleichner, Dickinson and Jenkins" },
-      { id: '126', name: "Feest, Schumm and Walsh" },
-      { id: '315', name: "Mayer and Sons" },
-      { id: '353', name: "Bailey, Monahan and Nitzsche" },
+      { id: '255', name: "Gleichner, Dickinson & Jenkins" },
+      { id: '126', name: "Feest, Schumm & Walsh" },
+      { id: '315', name: "Mayer & Sons" },
+      { id: '353', name: "Bailey, Monahan & Nitzsche" },
       { id: '661', name: "Dooley Inc" },
     ],
     selectedMerchant: 'all'

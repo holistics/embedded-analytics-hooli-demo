@@ -52,13 +52,13 @@
           <div v-for="(managers, role) in { 'Regional Manager': regionalManagers, 'Merchant Manager': merchantManagers }" :key="role">
             <div v-if="managers.length > 0">
               <div class="p-3 text-md text-white mt-2 flex items-center border-t border-gray-700">
-              {{ role }}
               <UTooltip
                 :popper="{ placement: 'right' }"  
                 :ui="{
                   base: 'h-full text-wrap',
                 }"
               >
+                {{ role }}
                 <UIcon name="i-heroicons-information-circle" class="ml-1 h-5 w-5 cursor-pointer" />
                 <template #text>
                   <div v-if="role === 'Regional Manager'">
@@ -229,7 +229,7 @@ function getUserTooltip(user) {
   if (merchantCount === 0) {
     return `${boldUserName} does not manage any merchants.`
   } else if (merchantCount === 1) {
-    return `${boldUserName} manages <strong>${merchantNames[0]}</strong>.`
+    return `${boldUserName} manages 1 merchant: "<strong>${merchantNames[0]}</strong>".`
   } else {
     const merchantList = merchantNames.map((name, index) => 
       `<li>${index + 1}. <strong>${name}</strong></li>`

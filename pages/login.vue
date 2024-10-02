@@ -1,19 +1,35 @@
 <!-- pages/login.vue -->
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-900">
-    <div class="w-full max-w-md p-8">
+  <div class="min-h-screen flex pt-12 justify-center bg-gray-900">
+    <div class="w-full flex flex-col items-center  p-8">
       <!-- Logo -->
-      <div class="text-center mb-8">
+      <div class="text-center">
         <img src="https://cdn.holistics.io/logos/hooli-logo.svg" alt="Holistics Logo" class="h-12 mx-auto" />
-        <p class="mt-4 text-white">
-          Welcome to Holistics Embedded Playground
-          <br>
-          Please select a role:
+        <p class="mt-4 text-white text-2xl">
+          Welcome to Hooli - Embedded Demo Application built by Holistics
         </p>
       </div>
 
+    <div class="max-w-[900px] my-6 py-4 px-6 text-white border border-gray-500 rounded flex justify-between gap-12">
+      <p class="w-6/12 mb-4">Hooli is a fictional ecommerce application designed to showcase the capabilities of <span class="text-[#009f6f]"><b>Holistics Embedded Analytics</b></span>.
+        <br><br>
+        This demo app lets you experience how our solution can be integrated into your ecommerce platform.
+      </p>
+      <div class="w-7/12">
+        <p>On this Hooli app, there are 5 users with 2 roles:</p>
+        <ul class="ml-10 list-disc">
+          <li><span class="text-primary"><b>Regional Managers (2)</b></span>: Oversee multiple merchants. They can see how all merchant performance and easily switch between merchants.</li>
+          <li><span class="text-primary"><b>Merchant Managers (3)</b></span>: Manages one merchant and only have access to data and insights related to this merchant.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="my-4 text-white text-xl">
+      Please select a user to log in:
+    </p>
+
     <div 
-      class="relative pb-4" 
+      class="relative w-[400px] pb-4" 
       @mouseenter="isOpen = true"
       @mouseleave="isOpen = false"
     >
@@ -55,13 +71,13 @@
             <div v-for="(managers, role) in { 'Regional Manager': regionalManagers, 'Merchant Manager': merchantManagers }" :key="role">
               <div v-if="managers.length > 0">
                 <div class="p-3 text-md mt-2 flex items-center border-t border-gray-200">
-                  {{ role }}
                   <UTooltip
                     :popper="{ placement: 'right' }"
                     :ui="{
                       base: 'h-full text-wrap',
                     }"
                   >
+                    {{ role }}
                     <UIcon name="i-heroicons-information-circle" class="ml-1 h-5 w-5 cursor-pointer" />
                     <template #text>
                       <div v-if="role === 'Regional Manager'">
@@ -111,14 +127,14 @@
         v-model="password"
         type="password"
         placeholder="Password: 123456"
-        class="w-full py-2 mb-4"
+        class="w-[400px] py-2 mb-4"
         size="lg"
         :disabled="!selectedUser"
       />
 
       <!-- Login Button -->
       <UButton
-        class="w-full bg-red-600 hover:bg-[#c03931] flex items-center justify-center text-white transition-colors duration-200"
+        class="w-[400px] bg-red-600 hover:bg-[#c03931] flex items-center justify-center text-white transition-colors duration-200"
         size="lg"
         :disabled="!selectedUser"
         @click="login"
@@ -180,7 +196,7 @@ function getUserTooltip(user) {
   if (merchantCount === 0) {
     return `${boldUserName} does not manage any merchants.`
   } else if (merchantCount === 1) {
-    return `${boldUserName} manages <strong>${merchantNames[0]}</strong>.`
+    return `${boldUserName} manages 1 merchant: "<strong>${merchantNames[0]}</strong>".`
   } else {
     const merchantList = merchantNames.map((name, index) => 
       `<li>${index + 1}. <strong>${name}</strong></li>`

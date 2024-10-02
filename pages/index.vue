@@ -38,7 +38,10 @@
       </ul>
     </blockquote>
 
-    <DashboardOriginal />
+    <DashboardOriginal 
+      dashboardLink="https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_home.page.aml"
+      dashboardName="Hooli Home"  
+    />
 
     <IframeLoader :iframe-url="iframeUrl"/>
   </div>
@@ -104,7 +107,7 @@ const roleMessage = computed(() => {
     roleSpecificMessage = `You're a Regional Manager, responsible for ${managedMerchants} merchants. Use the filter above to drill down and view each merchant’s performance individually.`
   } else if (currentUser.value.role === 'Merchant Manager') {
     const merchantName = availableMerchants.value?.find(m => m.id === currentUser.value.merchantId[0])?.name || 'Unknown Merchant'
-    roleSpecificMessage = `You're a Merchant Manager, your merchant is ${merchantName}. You can only see data and insights related to this merchant.`
+    roleSpecificMessage = `You're a Merchant Manager. You manage "${merchantName}" merchant. You can only see data and insights related to this merchant.`
   }
 
   return roleSpecificMessage

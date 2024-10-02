@@ -12,7 +12,10 @@
       </ul>
     </blockquote>
 
-    <DashboardOriginal />
+    <DashboardOriginal 
+      dashboardLink="https://playground.holistics.io/studio/projects/23200/explore/modules/demo/ecommerce/dashboards/hooli_overview.page.aml"
+      dashboardName="Hooli Overview"  
+    />
     
     <IframeLoader :iframe-url="iframeUrl"/>
   </div>
